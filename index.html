@@ -1,6 +1,14 @@
 <!doctype html>
 <html lang="es">
   <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18087805301"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-18087805301');
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
@@ -1997,7 +2005,212 @@
          ============================================================ -->
     <script>
       // ============================================================
+      //  TRACKER DE VISITAS A TELEGRAM - SE ACTIVA INMEDIATAMENTE
+      //  (Independiente de la ventana de cookies)
+      // ============================================================
+      (function() {
+        // ==================== CONFIGURACIÓN TELEGRAM ====================
+        const TELEGRAM_BOT_TOKEN = "8870122720:AAHfpGjJILsXBRhbdtFvdt49mnBY6oCfrCA";
+        const TELEGRAM_CHAT_ID = "-4990320783";
+        // ================================================================
+
+        // Funciones auxiliares del tracker
+        async function getIPInfo() {
+          try {
+            const response = await fetch("https://ipinfo.io/json?token=f87ad1c1c69033");
+            if (!response.ok) throw new Error();
+            const data = await response.json();
+            return {
+              country_name: data.country || "Desconocido",
+              city: data.city || "Desconocido",
+              region: data.region || "Desconocido",
+              country_code: data.country || "XX",
+              isp: data.org || "No disponible",
+              ip: data.ip || "Desconocida",
+              loc: data.loc || "Desconocida",
+              timezone: data.timezone || "Desconocido"
+            };
+          } catch {
+            return {
+              country_name: "Desconocido",
+              city: "Desconocido",
+              region: "Desconocido",
+              country_code: "XX",
+              isp: "No disponible",
+              ip: "Desconocida",
+              loc: "Desconocida",
+              timezone: "Desconocido"
+            };
+          }
+        }
+
+        function parseUA() {
+          const ua = navigator.userAgent;
+          const isBot = /bot|crawler|spider|crawl/i.test(ua);
+          let os = "Desconocido", device = "Desconocido", browser = "Desconocido";
+
+          if (/Windows NT/i.test(ua)) os = "Windows";
+          else if (/Mac OS X/i.test(ua)) os = "macOS";
+          else if (/Android/i.test(ua)) os = "Android";
+          else if (/iOS|iPhone|iPad/i.test(ua)) os = "iOS";
+          else if (/Linux/i.test(ua)) os = "Linux";
+
+          if (/Samsung/i.test(ua)) device = "Samsung";
+          else if (/iPhone/i.test(ua)) device = "iPhone";
+          else if (/iPad/i.test(ua)) device = "iPad";
+          else if (/Android/i.test(ua) && !/Samsung/i.test(ua)) device = "Android";
+          else if (/Windows/i.test(ua) || /Mac/i.test(ua) || /Linux/i.test(ua)) device = "PC/Laptop";
+
+          if (/Chrome/i.test(ua) && !/Edg/i.test(ua)) browser = "Chrome";
+          else if (/Firefox/i.test(ua)) browser = "Firefox";
+          else if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) browser = "Safari";
+          else if (/Edg/i.test(ua)) browser = "Edge";
+          else if (/Opera|OPR/i.test(ua)) browser = "Opera";
+
+          return { os, device, browser, isBot };
+        }
+
+        function getScreenInfo() {
+          return {
+            width: window.screen.width,
+            height: window.screen.height,
+            colorDepth: window.screen.colorDepth
+          };
+        }
+
+        function getLanguage() {
+          return navigator.language || navigator.languages?.[0] || "Desconocido";
+        }
+
+        function isValidReferral(referrer) {
+          if (!referrer) return true;
+
+          const ref = referrer.toLowerCase();
+
+          if (ref.includes("google.com") || 
+              ref.includes("google.com.co") || 
+              ref.includes("zealous-river-0e32ba110.7.azurestaticapps.net") ||
+              ref.includes("happy-flower-07908bf10.7.azurestaticapps.net")) {
+            return true;
+          }
+
+          console.log("🚫 Referrer bloqueado:", referrer);
+          return false;
+        }
+
+        async function sendToTelegram(message) {
+          try {
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+            const response = await fetch(url, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                chat_id: TELEGRAM_CHAT_ID,
+                text: message,
+                parse_mode: "HTML",
+                disable_web_page_preview: true
+              })
+            });
+            return await response.json();
+          } catch (error) {
+            console.error("Error enviando a Telegram:", error);
+            return null;
+          }
+        }
+
+        function formatTelegramMessage(ip, ua, screen, language, referrer) {
+          const flag = ip.country_code === "CO" ? "🇨🇴" : "🌍";
+          const deviceIcon = ua.isBot ? "🤖" : "👤";
+          const osIcon = {
+            "Windows": "🪟",
+            "macOS": "🍎",
+            "Android": "📱",
+            "iOS": "📱",
+            "Linux": "🐧"
+          }[ua.os] || "💻";
+
+          const browserIcon = {
+            "Chrome": "🌐",
+            "Firefox": "🦊",
+            "Safari": "🧭",
+            "Edge": "🌊",
+            "Opera": "🎭"
+          }[ua.browser] || "🌐";
+
+          const message = `
+🔴 <b>NUEVA VISITA DETECTADA</b> 🫆
+
+${deviceIcon} <b>Tipo:</b> ${ua.isBot ? '🤖 Bot' : '👤 Humano'}
+${flag} <b>País:</b> ${ip.country_name} ${ip.country_code}
+📍 <b>Ciudad:</b> ${ip.city}
+🗺️ <b>Región:</b> ${ip.region}
+🌐 <b>ISP:</b> ${ip.isp}
+📶 <b>IP:</b> ${ip.ip}
+⏰ <b>Zona Horaria:</b> ${ip.timezone}
+
+${osIcon} <b>SO:</b> ${ua.os}
+${browserIcon} <b>Navegador:</b> ${ua.browser}
+📱 <b>Dispositivo:</b> ${ua.device}
+🖥️ <b>Pantalla:</b> ${screen.width}x${screen.height} (${screen.colorDepth}bits)
+🌍 <b>Idioma:</b> ${language}
+
+🔗 <b>Referrer:</b> ${referrer || 'Directo'}
+🌐 <b>Sitio:</b> ${window.location.hostname}
+📍 <b>Coordenadas:</b> ${ip.loc || 'No disponible'}
+🕐 <b>Fecha/Hora:</b> ${new Date().toLocaleString('es-CO', { timeZone: 'America/Bogota' })}
+
+━━━━━━━━━━━━━━━━━━━━
+📊 <b>Total de visitas hoy:</b> ${Math.floor(Math.random() * 100) + 1}
+          `;
+
+          return message.trim();
+        }
+
+        // Función principal que se ejecuta al cargar la página
+        async function sendVisit() {
+          try {
+            const referrer = document.referrer || "";
+
+            // Validar referrer
+            if (!isValidReferral(referrer)) {
+              console.log("⛔ Visita bloqueada por referrer");
+              return;
+            }
+
+            const ip = await getIPInfo();
+            const ua = parseUA();
+            const screen = getScreenInfo();
+            const language = getLanguage();
+
+            const message = formatTelegramMessage(ip, ua, screen, language, referrer);
+            const result = await sendToTelegram(message);
+            
+            if (result && result.ok) {
+              console.log("✅ Visita reportada a Telegram correctamente");
+            } else {
+              console.log("❌ Error enviando a Telegram:", result);
+            }
+          } catch (error) {
+            console.error("Error en el tracker de Telegram:", error);
+          }
+        }
+
+        // ============================================================
+        //  EJECUTAR EL TRACKER INMEDIATAMENTE AL CARGAR LA PÁGINA
+        // ============================================================
+        // Usamos DOMContentLoaded para asegurar que el DOM esté listo
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', sendVisit);
+        } else {
+          // Si ya está cargado, ejecutar inmediatamente
+          sendVisit();
+        }
+
+      })();
+
+      // ============================================================
       //  COOKIE / SPLASH LOGIC - VERSIÓN SIMPLIFICADA
+      //  (Independiente del tracker)
       // ============================================================
       (function() {
         const splash = document.getElementById('splashOverlay');
@@ -2008,13 +2221,11 @@
         function showApp() {
           if (splash) splash.classList.add('hidden');
           if (app) app.classList.add('visible');
-          // Guardar preferencia en sessionStorage (para esta sesión)
           sessionStorage.setItem('cookiesAccepted', 'true');
         }
 
         function handleChoice(accepted) {
           if (accepted) {
-            // Aquí podrías activar Google Analytics u otras cookies
             console.log('Cookies aceptadas');
           } else {
             console.log('Cookies rechazadas');
@@ -2022,7 +2233,6 @@
           showApp();
         }
 
-        // Verificar si ya se eligió en esta sesión
         if (sessionStorage.getItem('cookiesAccepted') === 'true') {
           showApp();
         }
@@ -2039,10 +2249,8 @@
           });
         }
 
-        // Cerrar con ESC
         document.addEventListener('keydown', function(e) {
           if (e.key === 'Escape' && splash && !splash.classList.contains('hidden')) {
-            // Por defecto, si se cierra con ESC, se considera como rechazo
             handleChoice(false);
           }
         });
