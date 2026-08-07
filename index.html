@@ -1,27 +1,25 @@
 <!doctype html>
 <html lang="es">
   <head>
-   
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="NexusTravel: agencia de viajes en Colombia para comparar y encontrar ofertas de viajes nacionales. Busca ofertas por ciudad y mes."
+      content="NomadViajes: plataforma profesional para cotizar viajes nacionales en Colombia. Busca ofertas por ciudad y mes con total transparencia."
     />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>" type="image/svg+xml" />
-    <title>NexusTravel | Agencia de viajes en Colombia</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet"/>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈</text></svg>" type="image/svg+xml" />
+    <title>NomadViajes | Plataforma de viajes en Colombia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
     <style>
       /* ===== ROOT ===== */
       :root {
-        --primary: #0A2463;
-        --primary-light: #1E3A8A;
-        --primary-dark: #061A4A;
-        --primary-glow: rgba(10, 36, 99, 0.12);
-        --primary-glow-strong: rgba(10, 36, 99, 0.25);
+        --primary: #1E3A8A;
+        --primary-dark: #1A367C;
+        --primary-light: #2563EB;
+        --primary-glow: rgba(30, 58, 138, 0.10);
+        --primary-glow-strong: rgba(30, 58, 138, 0.20);
         --accent: #3B82F6;
         --accent-light: #60A5FA;
-        --accent-glow: rgba(59, 130, 246, 0.2);
         --white: #FFFFFF;
         --off-white: #F8FAFC;
         --gray-50: #F1F5F9;
@@ -31,19 +29,17 @@
         --gray-500: #64748B;
         --gray-700: #334155;
         --gray-900: #0F172A;
-        --gold: #F5C842;
-        --gold-light: #FFDE6B;
-        --gold-glow: rgba(245, 200, 66, 0.2);
-        --radius-sm: 12px;
-        --radius-md: 16px;
-        --radius-lg: 24px;
-        --radius-xl: 32px;
-        --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-        --shadow-card: 0 4px 24px rgba(10, 36, 99, 0.08), 0 1px 4px rgba(0,0,0,0.04);
-        --shadow-card-hover: 0 12px 48px rgba(10, 36, 99, 0.12), 0 4px 12px rgba(0,0,0,0.06);
-        --shadow-elevated: 0 24px 64px rgba(10, 36, 99, 0.15);
-        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        --radius-sm: 6px;
+        --radius-md: 10px;
+        --radius-lg: 14px;
+        --radius-xl: 20px;
+        --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+        --shadow-card: 0 4px 20px rgba(30, 58, 138, 0.06);
+        --shadow-card-hover: 0 8px 32px rgba(30, 58, 138, 0.10);
+        --shadow-elevated: 0 20px 60px rgba(30, 58, 138, 0.10);
+        --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        --gradient-hero: linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%);
+        --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       }
 
       * {
@@ -61,13 +57,12 @@
       }
 
       body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-family: var(--font-family);
         background: var(--off-white);
         color: var(--gray-900);
         line-height: 1.6;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        overflow-x: hidden;
       }
 
       a {
@@ -85,20 +80,20 @@
       }
 
       /* ============================================================
-         SPLASH / COOKIE OVERLAY - VERSIÓN SIMPLIFICADA
+         SPLASH / COOKIE OVERLAY - VERSIÓN COMPACTA
          ============================================================ */
       #splashOverlay {
         position: fixed;
         inset: 0;
         z-index: 9999;
-        background: rgba(10, 36, 99, 0.6);
-        backdrop-filter: blur(20px) saturate(180%);
-        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        background: rgba(30, 58, 138, 0.55);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 20px;
-        animation: splashFadeIn 0.4s ease;
+        padding: 16px;
+        animation: splashFadeIn 0.3s ease;
       }
 
       #splashOverlay.hidden {
@@ -111,26 +106,26 @@
       }
 
       .splash-card {
-        max-width: 480px;
+        max-width: 380px;
         width: 100%;
         background: var(--white);
-        border-radius: var(--radius-lg);
-        padding: 40px 36px 32px;
+        border-radius: var(--radius-md);
+        padding: 28px 32px 24px;
         text-align: center;
         box-shadow: var(--shadow-elevated);
-        animation: splashSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        animation: splashSlideUp 0.35s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
       @keyframes splashSlideUp {
-        from { opacity: 0; transform: translateY(20px) scale(0.98); }
-        to { opacity: 1; transform: translateY(0) scale(1); }
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
       }
 
       .splash-text {
         color: var(--gray-700);
-        font-size: 15px;
+        font-size: 14px;
         line-height: 1.7;
-        margin-bottom: 28px;
+        margin-bottom: 22px;
       }
 
       .splash-text strong {
@@ -140,31 +135,31 @@
       .splash-buttons {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 12px;
+        gap: 10px;
       }
 
-      @media (max-width: 420px) {
+      @media (max-width: 400px) {
         .splash-buttons {
           grid-template-columns: 1fr;
         }
         .splash-card {
-          padding: 28px 20px 24px;
+          padding: 20px 16px 16px;
         }
       }
 
       .btn-splash {
-        padding: 14px 24px;
+        padding: 11px 20px;
         border: none;
         border-radius: var(--radius-sm);
         font-family: inherit;
-        font-weight: 700;
-        font-size: 15px;
+        font-weight: 600;
+        font-size: 14px;
         cursor: pointer;
         transition: var(--transition);
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 8px;
+        gap: 6px;
       }
 
       .btn-splash:active {
@@ -174,13 +169,13 @@
       .btn-splash-primary {
         background: var(--primary);
         color: var(--white);
-        box-shadow: 0 4px 16px var(--primary-glow-strong);
+        box-shadow: 0 4px 12px var(--primary-glow-strong);
       }
 
       .btn-splash-primary:hover {
         background: var(--primary-light);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 32px var(--primary-glow-strong);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px var(--primary-glow-strong);
       }
 
       .btn-splash-secondary {
@@ -192,16 +187,14 @@
       .btn-splash-secondary:hover {
         background: var(--white);
         border-color: var(--gray-200);
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-sm);
       }
 
       /* ============================================================
-         MAIN APP (oculto inicialmente)
+         MAIN APP
          ============================================================ */
       #app {
         opacity: 0;
-        transition: opacity 0.6s ease;
+        transition: opacity 0.5s ease;
         pointer-events: none;
       }
 
@@ -210,9 +203,8 @@
         pointer-events: auto;
       }
 
-      /* ===== CONTAINER ===== */
       .container {
-        width: min(1200px, calc(100% - 48px));
+        width: min(1140px, calc(100% - 48px));
         margin: 0 auto;
       }
 
@@ -221,11 +213,10 @@
         position: sticky;
         top: 0;
         z-index: 100;
-        background: rgba(255, 255, 255, 0.88);
-        backdrop-filter: blur(16px) saturate(180%);
-        -webkit-backdrop-filter: blur(16px) saturate(180%);
-        border-bottom: 1px solid rgba(10, 36, 99, 0.06);
-        box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--gray-100);
       }
 
       .topbar-inner {
@@ -233,31 +224,31 @@
         gap: 20px;
         align-items: center;
         justify-content: space-between;
-        padding: 14px 0;
+        padding: 12px 0;
       }
 
       .brand {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 10px;
         font-weight: 800;
-        font-size: 20px;
+        font-size: 18px;
         color: var(--primary);
-        letter-spacing: -0.3px;
+        letter-spacing: -0.5px;
         flex-shrink: 0;
       }
 
       .brand-icon {
-        width: 40px;
-        height: 40px;
+        width: 34px;
+        height: 34px;
         border-radius: var(--radius-sm);
-        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        background: var(--gradient-hero);
         display: grid;
         place-items: center;
         color: white;
-        font-weight: 900;
-        font-size: 18px;
-        box-shadow: 0 4px 12px var(--primary-glow-strong);
+        font-weight: 800;
+        font-size: 14px;
+        box-shadow: 0 4px 10px var(--primary-glow-strong);
       }
 
       .brand span {
@@ -273,10 +264,10 @@
       }
 
       .nav a {
-        padding: 8px 14px;
+        padding: 7px 14px;
         border-radius: 50px;
-        font-weight: 600;
-        font-size: 14px;
+        font-weight: 500;
+        font-size: 13px;
         color: var(--gray-700);
         transition: var(--transition);
         letter-spacing: -0.2px;
@@ -290,22 +281,23 @@
       .nav a.whatsapp-link {
         background: #25D366;
         color: white;
-        padding: 8px 18px;
-        box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+        padding: 7px 18px;
+        box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+        font-weight: 600;
       }
 
       .nav a.whatsapp-link:hover {
         background: #1da851;
         transform: translateY(-1px);
-        box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
+        box-shadow: 0 6px 20px rgba(37, 211, 102, 0.30);
       }
 
       .menu-btn {
         display: none;
         align-items: center;
         justify-content: center;
-        width: 44px;
-        height: 44px;
+        width: 38px;
+        height: 38px;
         border-radius: var(--radius-sm);
         border: 1px solid var(--gray-100);
         background: white;
@@ -317,12 +309,11 @@
 
       .menu-btn:hover {
         background: var(--gray-50);
-        border-color: var(--gray-200);
       }
 
       .menu-icon {
-        width: 20px;
-        height: 14px;
+        width: 18px;
+        height: 12px;
         position: relative;
         display: inline-block;
       }
@@ -334,14 +325,14 @@
         position: absolute;
         left: 0;
         right: 0;
-        height: 2.5px;
+        height: 2px;
         border-radius: 999px;
         background: var(--gray-700);
         transition: var(--transition);
       }
 
       .menu-icon::before { top: 0; }
-      .menu-icon span { top: 5.5px; }
+      .menu-icon span { top: 5px; }
       .menu-icon::after { bottom: 0; }
 
       @media (max-width: 900px) {
@@ -358,10 +349,10 @@
         position: fixed;
         inset: 0;
         z-index: 200;
-        background: rgba(10, 36, 99, 0.4);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        padding: 20px;
+        background: rgba(30, 58, 138, 0.25);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        padding: 16px;
         animation: fadeIn 0.2s ease;
       }
 
@@ -371,7 +362,7 @@
 
       .mobile-menu-panel {
         margin-left: auto;
-        width: min(380px, 100%);
+        width: min(320px, 100%);
         border-radius: var(--radius-lg);
         background: white;
         box-shadow: var(--shadow-elevated);
@@ -384,28 +375,29 @@
         align-items: center;
         justify-content: space-between;
         gap: 12px;
-        padding: 18px 20px;
+        padding: 14px 18px;
         border-bottom: 1px solid var(--gray-100);
       }
 
       .mobile-menu-title {
         font-weight: 800;
-        font-size: 18px;
+        font-size: 16px;
         color: var(--primary);
         letter-spacing: -0.3px;
       }
 
       .menu-close {
-        width: 40px;
-        height: 40px;
+        width: 34px;
+        height: 34px;
         border-radius: 50%;
         border: 1px solid var(--gray-100);
         background: white;
         color: var(--gray-700);
         cursor: pointer;
-        font-size: 20px;
-        font-weight: 400;
+        font-size: 16px;
         transition: var(--transition);
+        display: grid;
+        place-items: center;
       }
 
       .menu-close:hover {
@@ -414,8 +406,8 @@
 
       .mobile-menu-links {
         display: grid;
-        padding: 12px;
-        gap: 4px;
+        padding: 10px;
+        gap: 2px;
         max-height: 60vh;
         overflow-y: auto;
       }
@@ -423,12 +415,13 @@
       .mobile-menu-links a {
         display: flex;
         align-items: center;
-        gap: 12px;
-        padding: 12px 16px;
+        gap: 10px;
+        padding: 10px 14px;
         border-radius: var(--radius-sm);
-        font-weight: 600;
+        font-weight: 500;
         color: var(--gray-700);
         transition: var(--transition);
+        font-size: 14px;
       }
 
       .mobile-menu-links a:hover {
@@ -439,8 +432,9 @@
       .mobile-menu-links a.whatsapp-link {
         background: #25D366;
         color: white;
-        margin-top: 8px;
+        margin-top: 6px;
         justify-content: center;
+        font-weight: 600;
       }
 
       .mobile-menu-links a.whatsapp-link:hover {
@@ -448,9 +442,9 @@
       }
 
       .mobile-menu-foot {
-        padding: 14px 20px;
+        padding: 12px 18px;
         color: var(--gray-500);
-        font-size: 12px;
+        font-size: 11px;
         border-top: 1px solid var(--gray-100);
         text-align: center;
       }
@@ -461,19 +455,19 @@
       }
 
       @keyframes slideInRight {
-        from { transform: translateX(30px); opacity: 0; }
+        from { transform: translateX(20px); opacity: 0; }
         to { transform: translateX(0); opacity: 1; }
       }
 
-      /* ===== HERO ===== */
+      /* ===== HERO SECTION ===== */
       .hero {
-        padding: 48px 0 32px;
+        padding: 40px 0 32px;
       }
 
       .hero-grid {
         display: grid;
         gap: 28px;
-        grid-template-columns: 1.2fr 0.8fr;
+        grid-template-columns: 1fr 1fr;
         align-items: stretch;
       }
 
@@ -484,10 +478,10 @@
       }
 
       .card {
-        background: white;
+        background: var(--white);
         border-radius: var(--radius-lg);
         box-shadow: var(--shadow-card);
-        border: 1px solid rgba(10, 36, 99, 0.04);
+        border: 1px solid var(--gray-100);
         transition: var(--transition);
       }
 
@@ -497,59 +491,32 @@
 
       .hero-card {
         padding: 32px 36px;
-        position: relative;
-        overflow: hidden;
-        background: linear-gradient(145deg, #ffffff, #f8fafc);
-        border: 1px solid rgba(10, 36, 99, 0.05);
-      }
-
-      .hero-card::before {
-        content: "";
-        position: absolute;
-        top: -50%;
-        right: -30%;
-        width: 400px;
-        height: 400px;
-        background: radial-gradient(circle, rgba(10, 36, 99, 0.04) 0%, transparent 70%);
-        pointer-events: none;
-        border-radius: 50%;
-      }
-
-      .hero-card::after {
-        content: "";
-        position: absolute;
-        bottom: -40%;
-        left: -20%;
-        width: 300px;
-        height: 300px;
-        background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
-        pointer-events: none;
-        border-radius: 50%;
-      }
-
-      .hero-card > * {
-        position: relative;
-        z-index: 1;
+        background: var(--white);
+        border: 1px solid var(--gray-100);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
       }
 
       .hero-badge {
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        padding: 6px 14px;
+        padding: 5px 14px;
         border-radius: 50px;
         background: var(--primary-glow);
         color: var(--primary);
-        font-weight: 700;
-        font-size: 12px;
-        letter-spacing: 0.3px;
+        font-weight: 600;
+        font-size: 11px;
+        letter-spacing: 0.5px;
         text-transform: uppercase;
-        margin-bottom: 12px;
+        margin-bottom: 14px;
+        width: fit-content;
       }
 
       .hero-badge .dot {
-        width: 6px;
-        height: 6px;
+        width: 5px;
+        height: 5px;
         border-radius: 50%;
         background: #25D366;
         display: inline-block;
@@ -558,67 +525,67 @@
 
       @keyframes pulse {
         0%, 100% { opacity: 1; transform: scale(1); }
-        50% { opacity: 0.6; transform: scale(1.2); }
+        50% { opacity: 0.5; transform: scale(1.2); }
       }
 
       h1 {
-        font-size: clamp(28px, 3.4vw, 44px);
+        font-size: clamp(28px, 3.2vw, 40px);
         font-weight: 900;
-        line-height: 1.12;
-        letter-spacing: -0.02em;
+        line-height: 1.1;
+        letter-spacing: -0.03em;
         color: var(--gray-900);
-        margin: 4px 0 12px;
+        margin: 0 0 12px;
       }
 
       h1 .highlight {
-        background: linear-gradient(135deg, var(--primary), var(--accent));
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
       }
 
       .lead {
-        font-size: 16px;
+        font-size: 15px;
         color: var(--gray-500);
         max-width: 90%;
-        margin-bottom: 20px;
-        line-height: 1.7;
+        margin-bottom: 18px;
+        line-height: 1.8;
       }
 
       .trust-row {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 8px;
+        gap: 8px;
+        margin-top: 4px;
       }
 
       .pill {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
-        padding: 8px 16px;
+        gap: 6px;
+        padding: 5px 14px;
         border-radius: 50px;
         background: var(--gray-50);
         border: 1px solid var(--gray-100);
         color: var(--gray-700);
-        font-weight: 600;
-        font-size: 13px;
+        font-weight: 500;
+        font-size: 12px;
       }
 
       .pill .icon {
-        font-size: 16px;
+        font-size: 13px;
       }
 
       .tiny {
         font-size: 12px;
         color: var(--gray-500);
-        font-weight: 500;
+        font-weight: 400;
         line-height: 1.6;
       }
 
       .hero-cta-row {
         display: flex;
-        gap: 12px;
+        gap: 10px;
         flex-wrap: wrap;
         margin-top: 16px;
       }
@@ -626,7 +593,11 @@
       /* ===== SEARCH CARD ===== */
       .search-card {
         padding: 24px 28px;
-        background: white;
+        background: var(--white);
+        border: 1px solid var(--gray-100);
+        border-radius: var(--radius-lg);
+        display: flex;
+        flex-direction: column;
       }
 
       .search-title {
@@ -638,7 +609,7 @@
       }
 
       .search-title h2 {
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 800;
         color: var(--gray-900);
         letter-spacing: -0.3px;
@@ -650,7 +621,7 @@
 
       .hint {
         font-weight: 600;
-        font-size: 13px;
+        font-size: 12px;
         color: var(--gray-500);
         background: var(--gray-50);
         padding: 4px 14px;
@@ -661,18 +632,20 @@
       form {
         display: grid;
         gap: 14px;
+        flex: 1;
       }
 
       .field {
         display: grid;
-        gap: 6px;
+        gap: 4px;
       }
 
       .field label {
-        font-weight: 700;
-        font-size: 13px;
+        font-weight: 600;
+        font-size: 12px;
         color: var(--gray-700);
         letter-spacing: -0.2px;
+        text-transform: uppercase;
       }
 
       .field input,
@@ -680,10 +653,10 @@
         width: 100%;
         border-radius: var(--radius-sm);
         border: 1.5px solid var(--gray-100);
-        background: var(--off-white);
+        background: var(--white);
         color: var(--gray-900);
-        padding: 12px 14px;
-        font-weight: 600;
+        padding: 10px 14px;
+        font-weight: 500;
         font-size: 14px;
         font-family: inherit;
         transition: var(--transition);
@@ -692,7 +665,7 @@
       .field input:focus,
       .field select:focus {
         border-color: var(--primary);
-        background: white;
+        background: var(--white);
         box-shadow: 0 0 0 4px var(--primary-glow);
       }
 
@@ -713,12 +686,11 @@
         }
       }
 
-      /* Trip toggle */
       .trip-toggle {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        margin: 2px 0 4px;
+        gap: 8px;
+        margin: 0 0 2px;
       }
 
       .trip-radio {
@@ -737,13 +709,13 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 8px;
+        gap: 6px;
         border-radius: var(--radius-sm);
-        padding: 12px 14px;
-        font-weight: 700;
-        font-size: 14px;
+        padding: 10px 12px;
+        font-weight: 600;
+        font-size: 13px;
         border: 1.5px solid var(--gray-100);
-        background: var(--off-white);
+        background: var(--white);
         color: var(--gray-700);
         cursor: pointer;
         user-select: none;
@@ -752,14 +724,14 @@
 
       .trip-pill:hover {
         border-color: var(--gray-200);
-        background: white;
+        background: var(--gray-50);
       }
 
       .trip-radio:checked + .trip-pill {
         background: var(--primary);
         color: white;
         border-color: var(--primary);
-        box-shadow: 0 4px 16px var(--primary-glow-strong);
+        box-shadow: 0 4px 12px var(--primary-glow-strong);
       }
 
       .trip-radio:focus-visible + .trip-pill {
@@ -767,7 +739,6 @@
         outline-offset: 2px;
       }
 
-      /* Buttons */
       .actions {
         display: grid;
         gap: 10px;
@@ -785,13 +756,13 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 10px;
+        gap: 8px;
         border: 0;
         cursor: pointer;
         border-radius: var(--radius-sm);
-        padding: 14px 20px;
-        font-weight: 700;
-        font-size: 15px;
+        padding: 12px 18px;
+        font-weight: 600;
+        font-size: 14px;
         font-family: inherit;
         transition: var(--transition);
         letter-spacing: -0.2px;
@@ -802,14 +773,14 @@
       }
 
       .btn-primary {
-        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        background: var(--gradient-hero);
         color: white;
-        box-shadow: 0 4px 20px var(--primary-glow-strong);
+        box-shadow: 0 4px 16px var(--primary-glow-strong);
       }
 
       .btn-primary:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 32px var(--primary-glow-strong);
+        box-shadow: 0 8px 24px var(--primary-glow-strong);
       }
 
       .btn-secondary {
@@ -823,27 +794,16 @@
         border-color: var(--gray-200);
       }
 
-      .btn-gold {
-        background: linear-gradient(135deg, var(--gold), var(--gold-light));
-        color: var(--gray-900);
-        box-shadow: 0 4px 20px var(--gold-glow);
-      }
-
-      .btn-gold:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 30px rgba(245, 200, 66, 0.35);
-      }
-
       .btn-inline {
         width: auto;
-        padding: 10px 20px;
-        font-size: 13px;
+        padding: 8px 18px;
+        font-size: 12px;
       }
 
       .msg {
         min-height: 20px;
         font-size: 13px;
-        font-weight: 600;
+        font-weight: 500;
         color: var(--gray-500);
         grid-column: 1 / -1;
       }
@@ -858,7 +818,12 @@
 
       /* ===== SECTIONS ===== */
       .section {
-        padding: 32px 0 56px;
+        padding: 40px 0 56px;
+        border-top: 1px solid var(--gray-100);
+      }
+
+      .section:first-of-type {
+        border-top: none;
       }
 
       .section-header {
@@ -866,11 +831,11 @@
       }
 
       .section-header h2 {
-        font-size: clamp(24px, 2.6vw, 34px);
+        font-size: clamp(22px, 2.4vw, 30px);
         font-weight: 900;
         letter-spacing: -0.02em;
         color: var(--gray-900);
-        margin-bottom: 8px;
+        margin-bottom: 6px;
       }
 
       .section-header h2 span {
@@ -879,8 +844,9 @@
 
       .section-header p {
         color: var(--gray-500);
-        font-size: 16px;
+        font-size: 15px;
         max-width: 70ch;
+        line-height: 1.7;
       }
 
       /* ===== OFFERS ===== */
@@ -903,54 +869,57 @@
       }
 
       .offer {
-        padding: 20px 22px;
+        padding: 18px 20px;
         border-radius: var(--radius-md);
-        background: white;
-        border: 1px solid rgba(10, 36, 99, 0.04);
+        background: var(--white);
+        border: 1px solid var(--gray-100);
         box-shadow: var(--shadow-card);
         display: grid;
-        gap: 10px;
+        gap: 8px;
         transition: var(--transition);
+        border-left: 3px solid var(--primary);
       }
 
       .offer:hover {
         transform: translateY(-4px);
         box-shadow: var(--shadow-card-hover);
-        border-color: rgba(10, 36, 99, 0.08);
+        border-color: var(--gray-200);
+        border-left-color: var(--accent);
       }
 
       .offer-head {
         display: flex;
         align-items: baseline;
         justify-content: space-between;
-        gap: 12px;
+        gap: 10px;
         flex-wrap: wrap;
       }
 
       .route {
-        font-weight: 800;
+        font-weight: 700;
         font-size: 15px;
         color: var(--gray-900);
         letter-spacing: -0.2px;
       }
 
       .route .arrow {
-        color: var(--gray-300);
+        color: var(--primary);
         margin: 0 4px;
+        font-weight: 700;
       }
 
       .month-badge {
-        font-weight: 700;
-        font-size: 12px;
-        color: var(--primary);
+        font-weight: 600;
+        font-size: 11px;
+        color: var(--primary-dark);
         background: var(--primary-glow);
-        padding: 2px 12px;
+        padding: 3px 12px;
         border-radius: 50px;
         white-space: nowrap;
       }
 
       .price {
-        font-weight: 900;
+        font-weight: 800;
         font-size: 24px;
         letter-spacing: -0.4px;
         color: var(--primary);
@@ -959,26 +928,26 @@
       .price small {
         font-size: 13px;
         color: var(--gray-500);
-        font-weight: 600;
+        font-weight: 500;
       }
 
       .offer-meta {
         color: var(--gray-500);
-        font-weight: 500;
+        font-weight: 400;
         font-size: 13px;
         line-height: 1.5;
       }
 
       .offer-actions {
         display: flex;
-        gap: 10px;
+        gap: 8px;
         margin-top: 4px;
       }
 
       .offer-actions .btn {
         flex: 1;
-        padding: 10px 14px;
-        font-size: 13px;
+        padding: 8px 12px;
+        font-size: 12px;
       }
 
       /* ===== GALLERY ===== */
@@ -1002,8 +971,8 @@
 
       .gallery-item {
         border-radius: var(--radius-md);
-        background: white;
-        border: 1px solid rgba(10, 36, 99, 0.04);
+        background: var(--white);
+        border: 1px solid var(--gray-100);
         overflow: hidden;
         box-shadow: var(--shadow-card);
         transition: var(--transition);
@@ -1015,19 +984,21 @@
       }
 
       .gallery-media {
-        height: 160px;
-        background: linear-gradient(135deg, var(--primary-glow), var(--accent-glow));
+        height: 150px;
+        background: linear-gradient(135deg, var(--primary-glow), var(--gray-50));
         display: grid;
         place-items: center;
-        font-size: 48px;
+        font-size: 36px;
         color: var(--gray-300);
       }
 
       .gallery-caption {
         padding: 14px 18px;
-        font-weight: 700;
+        font-weight: 600;
         color: var(--gray-900);
-        font-size: 15px;
+        font-size: 14px;
+        background: var(--white);
+        border-top: 1px solid var(--gray-100);
       }
 
       /* ===== COMPLIANCE / SERVICIOS ===== */
@@ -1046,11 +1017,12 @@
       .compliance .card {
         padding: 20px 24px;
         box-shadow: var(--shadow-card);
-        border: 1px solid rgba(10, 36, 99, 0.04);
+        border: 1px solid var(--gray-100);
+        border-top: 3px solid var(--primary);
       }
 
       .compliance .card strong {
-        font-size: 16px;
+        font-size: 15px;
         color: var(--gray-900);
         display: block;
         margin-bottom: 10px;
@@ -1058,7 +1030,7 @@
 
       .list {
         display: grid;
-        gap: 8px;
+        gap: 6px;
         margin: 0;
         padding: 0;
         list-style: none;
@@ -1067,17 +1039,17 @@
       .list li {
         display: grid;
         grid-template-columns: 8px 1fr;
-        gap: 12px;
+        gap: 10px;
         align-items: start;
         color: var(--gray-600);
-        font-weight: 500;
+        font-weight: 400;
         font-size: 14px;
-        line-height: 1.5;
+        line-height: 1.6;
       }
 
       .list li .bullet {
-        width: 8px;
-        height: 8px;
+        width: 6px;
+        height: 6px;
         border-radius: 50%;
         background: var(--primary);
         margin-top: 6px;
@@ -1086,12 +1058,12 @@
 
       .list li strong {
         color: var(--gray-900);
-        font-weight: 700;
+        font-weight: 600;
       }
 
       .list li a {
         color: var(--primary);
-        font-weight: 600;
+        font-weight: 500;
       }
 
       .list li a:hover {
@@ -1100,9 +1072,9 @@
 
       /* ===== FOOTER ===== */
       .footer {
-        padding: 32px 0 48px;
+        padding: 32px 0 40px;
         border-top: 1px solid var(--gray-100);
-        background: white;
+        background: var(--white);
       }
 
       .footer-grid {
@@ -1120,12 +1092,12 @@
 
       .footer strong {
         color: var(--gray-900);
-        font-weight: 800;
+        font-weight: 700;
       }
 
       .footer a {
         color: var(--primary);
-        font-weight: 600;
+        font-weight: 500;
         transition: var(--transition);
       }
 
@@ -1135,17 +1107,17 @@
       }
 
       .footer .tiny {
-        margin-top: 6px;
+        margin-top: 4px;
       }
 
       .footer .tiny a {
-        font-weight: 500;
+        font-weight: 400;
       }
 
       .footer-links {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px 16px;
+        gap: 6px 16px;
         margin-top: 8px;
       }
 
@@ -1158,10 +1130,10 @@
         position: fixed;
         inset: 0;
         z-index: 300;
-        background: rgba(10, 36, 99, 0.4);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        padding: 20px;
+        background: rgba(30, 58, 138, 0.35);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        padding: 16px;
         display: grid;
         place-items: center;
         animation: fadeIn 0.2s ease;
@@ -1172,12 +1144,13 @@
       }
 
       .calendar-panel {
-        width: min(420px, 100%);
+        width: min(360px, 100%);
         border-radius: var(--radius-lg);
-        background: white;
+        background: var(--white);
         box-shadow: var(--shadow-elevated);
         overflow: hidden;
         animation: scaleIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid var(--gray-100);
       }
 
       @keyframes scaleIn {
@@ -1189,57 +1162,60 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 8px;
-        padding: 16px 18px;
+        gap: 4px;
+        padding: 12px 16px;
         border-bottom: 1px solid var(--gray-100);
+        background: var(--gray-50);
       }
 
       .calendar-title {
-        font-weight: 800;
-        font-size: 16px;
-        color: var(--gray-900);
+        font-weight: 700;
+        font-size: 15px;
+        color: var(--primary);
         letter-spacing: -0.2px;
       }
 
       .cal-btn {
-        width: 40px;
-        height: 40px;
+        width: 34px;
+        height: 34px;
         border-radius: 50%;
         border: 1px solid var(--gray-100);
-        background: white;
+        background: var(--white);
         color: var(--gray-700);
         cursor: pointer;
-        font-weight: 700;
-        font-size: 16px;
+        font-weight: 600;
+        font-size: 14px;
         transition: var(--transition);
         display: grid;
         place-items: center;
       }
 
       .cal-btn:hover {
-        background: var(--gray-50);
-        border-color: var(--gray-200);
+        background: var(--primary-glow);
+        border-color: var(--primary);
+        color: var(--primary);
       }
 
       .calendar-body {
-        padding: 16px 18px 20px;
+        padding: 14px 16px 16px;
       }
 
       .calendar-weekdays {
         display: grid;
         grid-template-columns: repeat(7, 1fr);
-        gap: 4px;
-        margin-bottom: 8px;
+        gap: 3px;
+        margin-bottom: 6px;
         color: var(--gray-500);
-        font-weight: 700;
-        font-size: 12px;
+        font-weight: 600;
+        font-size: 11px;
         text-align: center;
+        text-transform: uppercase;
       }
 
       .calendar-grid {
         display: grid;
         grid-template-columns: repeat(7, 1fr);
-        gap: 4px;
+        gap: 3px;
       }
 
       .day-btn {
@@ -1247,9 +1223,9 @@
         border: 1px solid transparent;
         background: transparent;
         color: var(--gray-900);
-        padding: 10px 0;
-        font-weight: 600;
-        font-size: 14px;
+        padding: 8px 0;
+        font-weight: 500;
+        font-size: 13px;
         cursor: pointer;
         transition: var(--transition);
       }
@@ -1257,10 +1233,11 @@
       .day-btn:hover:not(:disabled) {
         background: var(--primary-glow);
         border-color: var(--primary);
+        color: var(--primary);
       }
 
       .day-btn:disabled {
-        opacity: 0.3;
+        opacity: 0.25;
         cursor: not-allowed;
       }
 
@@ -1286,7 +1263,7 @@
           padding: 24px 20px;
         }
         .search-card {
-          padding: 20px;
+          padding: 18px 20px;
         }
         .lead {
           max-width: 100%;
@@ -1299,7 +1276,6 @@
         }
       }
 
-      /* Utilities */
       .sr-only {
         position: absolute;
         width: 1px;
@@ -1311,23 +1287,16 @@
         white-space: nowrap;
         border-width: 0;
       }
-
-      .mt-2 { margin-top: 8px; }
-      .mb-2 { margin-bottom: 8px; }
-      .gap-2 { gap: 8px; }
-      .flex { display: flex; }
-      .flex-wrap { flex-wrap: wrap; }
-      .items-center { align-items: center; }
     </style>
   </head>
   <body>
     <!-- ============================================================
-         SPLASH / COOKIE OVERLAY - VERSIÓN SIMPLIFICADA
+         SPLASH / COOKIE OVERLAY - VERSIÓN COMPACTA
          ============================================================ -->
     <div id="splashOverlay" role="dialog" aria-modal="true" aria-label="Política de cookies">
       <div class="splash-card">
         <div class="splash-text">
-          Utilizamos cookies para mejorar tu experiencia en nuestra plataforma. Al aceptar, permites que usemos cookies propias y de terceros para ofrecerte una navegación más fluida y contenido personalizado.
+          Utilizamos cookies para mejorar tu experiencia. Al aceptar, permites que usemos cookies para ofrecerte una navegación más fluida y contenido personalizado.
         </div>
         <div class="splash-buttons">
           <button id="acceptCookies" class="btn-splash btn-splash-primary">
@@ -1341,15 +1310,15 @@
     </div>
 
     <!-- ============================================================
-         MAIN APP (oculto hasta que se elija cookies)
+         MAIN APP
          ============================================================ -->
     <div id="app">
       <!-- ===== TOPBAR ===== -->
       <header class="topbar">
         <div class="container topbar-inner">
           <a class="brand" href="#inicio" aria-label="Ir al inicio">
-            <span class="brand-icon">NT</span>
-            <span>Nexus<span>Travel</span></span>
+            <span class="brand-icon">✈</span>
+            <span>Nomad<span>Viajes</span></span>
           </a>
           <nav class="nav" aria-label="Navegación principal">
             <a href="#buscar">Buscar</a>
@@ -1360,12 +1329,12 @@
             <a href="#transparencia">Transparencia</a>
             <a href="#contacto">Contacto</a>
             <a
-              href="https://wa.me/573125550198?text=Hola%20NexusTravel%2C%20quiero%20cotizar%20un%20viaje%20nacional%20en%20Colombia"
+              href="https://wa.me/573125550198?text=Hola%20NomadViajes%2C%20quiero%20cotizar%20un%20viaje%20nacional%20en%20Colombia"
               target="_blank"
               rel="noopener noreferrer"
               class="whatsapp-link"
             >
-              💬 WhatsApp
+              WhatsApp
             </a>
           </nav>
           <button
@@ -1385,24 +1354,24 @@
       <div id="mobileMenu" class="mobile-menu" hidden>
         <div class="mobile-menu-panel" role="dialog" aria-modal="true" aria-label="Menú">
           <div class="mobile-menu-head">
-            <div class="mobile-menu-title">NexusTravel</div>
+            <div class="mobile-menu-title">✈ NomadViajes</div>
             <button id="closeMenuBtn" class="menu-close" type="button" aria-label="Cerrar menú">✕</button>
           </div>
           <nav class="mobile-menu-links" aria-label="Navegación móvil">
-            <a href="#buscar">🔍 Buscar ofertas</a>
-            <a href="#ofertas">✈️ Ofertas</a>
-            <a href="#servicios">🛎️ Servicios</a>
-            <a href="#galeria">📸 Galería</a>
-            <a href="#quienes-somos">👤 Quiénes somos</a>
-            <a href="#transparencia">📋 Transparencia</a>
-            <a href="#contacto">📬 Contacto</a>
+            <a href="#buscar">Buscar ofertas</a>
+            <a href="#ofertas">Ofertas</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#galeria">Galería</a>
+            <a href="#quienes-somos">Quiénes somos</a>
+            <a href="#transparencia">Transparencia</a>
+            <a href="#contacto">Contacto</a>
             <a
-              href="https://wa.me/573125550198?text=Hola%20NexusTravel%2C%20quiero%20cotizar%20un%20viaje%20nacional%20en%20Colombia"
+              href="https://wa.me/573125550198?text=Hola%20NomadViajes%2C%20quiero%20cotizar%20un%20viaje%20nacional%20en%20Colombia"
               target="_blank"
               rel="noopener noreferrer"
               class="whatsapp-link"
             >
-              💬 WhatsApp
+              WhatsApp
             </a>
           </nav>
           <div class="mobile-menu-foot">Toca fuera del panel o presiona ESC para cerrar.</div>
@@ -1415,35 +1384,32 @@
           <section class="card hero-card" aria-label="Presentación">
             <div class="hero-badge">
               <span class="dot"></span>
-              Plataforma digital turística
+              Tu viaje comienza aquí
             </div>
             <h1>
-              Viajes nacionales en <span class="highlight">Colombia</span>
+              Explora <span class="highlight">Colombia</span> con confianza
             </h1>
             <p class="lead">
-              Encuentra ofertas con búsqueda simple, precios referenciales claros y condiciones
-              transparentes. NexusTravel te ayuda a comparar opciones para tu próximo viaje.
+              Encuentra ofertas con búsqueda simple, precios referenciales claros y condiciones transparentes. NomadViajes te ayuda a comparar opciones para tu próximo viaje.
             </p>
             <div class="trust-row">
               <span class="pill"><span class="icon">✓</span> Datos orientativos</span>
-              <span class="pill"><span class="icon">✓</span> Sin letra chica</span>
+              <span class="pill"><span class="icon">✓</span> Sin letra pequeña</span>
               <span class="pill"><span class="icon">✓</span> Contacto directo</span>
             </div>
             <div class="hero-cta-row">
               <a class="btn btn-primary btn-inline" href="#buscar">Buscar ofertas</a>
               <a class="btn btn-secondary btn-inline" href="#ofertas">Ver ofertas</a>
             </div>
-            <p class="tiny" style="margin-top: 16px">
-              <strong>Nota:</strong> NexusTravel es una marca independiente. No somos JetSMART ni
-              estamos afiliados a aerolíneas; la disponibilidad y el precio final pueden variar al
-              momento de comprar.
+            <p class="tiny" style="margin-top: 14px">
+              <strong>Nota:</strong> NomadViajes es una marca independiente. No somos JetSMART ni estamos afiliados a aerolíneas; la disponibilidad y el precio final pueden variar al momento de comprar.
             </p>
           </section>
 
           <!-- ===== SEARCH CARD ===== -->
           <aside id="buscar" class="card search-card" aria-label="Buscador de ofertas">
             <div class="search-title">
-              <h2>✈️ Buscar <span>ofertas</span></h2>
+              <h2>Buscar <span>ofertas</span></h2>
               <span id="resultsHint" class="hint">Listo para buscar</span>
             </div>
             <form id="searchForm" novalidate data-redirect-url="#ofertas">
@@ -1609,14 +1575,13 @@
               </div>
 
               <div class="actions">
-                <button id="searchBtn" class="btn btn-primary" type="submit">🔍 Buscar ofertas</button>
+                <button id="searchBtn" class="btn btn-primary" type="submit">Buscar ofertas</button>
                 <button id="resetBtn" class="btn btn-secondary" type="button">Limpiar</button>
                 <div id="formMsg" class="msg" role="status" aria-live="polite"></div>
               </div>
             </form>
             <p class="tiny" style="margin: 12px 0 0">
-              Precios referenciales por persona, por tramo, sujetos a disponibilidad. Impuestos y
-              tasas pueden aplicar según el mercado. Revisa condiciones antes de comprar.
+              Precios referenciales por persona, por tramo, sujetos a disponibilidad. Impuestos y tasas pueden aplicar según el mercado.
             </p>
           </aside>
         </div>
@@ -1637,7 +1602,7 @@
               <div>Vi</div><div>Sa</div><div>Do</div>
             </div>
             <div id="calGrid" class="calendar-grid"></div>
-            <div id="calHint" class="tiny" style="margin-top: 10px"></div>
+            <div id="calHint" class="tiny" style="margin-top: 8px"></div>
           </div>
         </div>
       </div>
@@ -1648,8 +1613,7 @@
           <div class="section-header">
             <h2>Ofertas <span>destacadas</span></h2>
             <p id="offersSummary">
-              Muestra referencial para demostración. Usa el buscador para filtrar por origen,
-              destino y fechas.
+              Muestra referencial para demostración. Usa el buscador para filtrar por origen, destino y fechas.
             </p>
           </div>
 
@@ -1741,13 +1705,12 @@
           <div class="section-header">
             <h2>Nuestros <span>servicios</span></h2>
             <p>
-              Te ayudamos a cotizar y organizar viajes con información clara y condiciones visibles.
-              Operamos en Colombia y Ecuador.
+              Te ayudamos a cotizar y organizar viajes con información clara y condiciones visibles. Operamos en Colombia y Ecuador.
             </p>
           </div>
           <div class="compliance">
             <div class="card">
-              <strong>🛎️ Servicios principales</strong>
+              <strong>Servicios principales</strong>
               <ul class="list">
                 <li><span class="bullet"></span>Cotización de vuelos nacionales</li>
                 <li><span class="bullet"></span>Paquetes (vuelo + hotel) según disponibilidad</li>
@@ -1756,7 +1719,7 @@
               </ul>
             </div>
             <div class="card">
-              <strong>📋 Soporte y condiciones</strong>
+              <strong>Soporte y condiciones</strong>
               <ul class="list">
                 <li><span class="bullet"></span>Información de equipaje y cambios según tarifa</li>
                 <li><span class="bullet"></span>Precios referenciales sujetos a disponibilidad</li>
@@ -1765,7 +1728,7 @@
               </ul>
             </div>
             <div class="card">
-              <strong>🎯 Qué recibes</strong>
+              <strong>Qué recibes</strong>
               <ul class="list">
                 <li><span class="bullet"></span>Opciones de viaje según tu ruta y fechas</li>
                 <li><span class="bullet"></span>Resumen de tu búsqueda y detalles de la oferta</li>
@@ -1774,7 +1737,7 @@
               </ul>
             </div>
             <div class="card">
-              <strong>👤 Para quién es</strong>
+              <strong>Para quién es</strong>
               <ul class="list">
                 <li><span class="bullet"></span>Viajeros que buscan opciones claras para comparar</li>
                 <li><span class="bullet"></span>Familias y grupos que necesitan asesoría de fechas</li>
@@ -1795,7 +1758,7 @@
           </div>
           <div class="gallery" aria-label="Galería de destinos">
             <article class="gallery-item">
-              <div class="gallery-media">🏖️</div>
+              <div class="gallery-media">🏖</div>
               <div class="gallery-caption">Cartagena</div>
             </article>
             <article class="gallery-item">
@@ -1803,7 +1766,7 @@
               <div class="gallery-caption">San Andrés</div>
             </article>
             <article class="gallery-item">
-              <div class="gallery-media">🏔️</div>
+              <div class="gallery-media">🏔</div>
               <div class="gallery-caption">Santa Marta</div>
             </article>
             <article class="gallery-item">
@@ -1811,7 +1774,7 @@
               <div class="gallery-caption">Medellín</div>
             </article>
             <article class="gallery-item">
-              <div class="gallery-media">☀️</div>
+              <div class="gallery-media">☀</div>
               <div class="gallery-caption">Cali</div>
             </article>
             <article class="gallery-item">
@@ -1829,8 +1792,8 @@
             <h2>Cómo <span>funciona</span></h2>
             <p>Proceso simple para cotizar y elegir tu opción de viaje.</p>
           </div>
-          <div class="card" style="padding: 24px 28px;">
-            <ul class="list" style="grid-template-columns: 1fr; gap: 12px;">
+          <div class="card" style="padding: 22px 26px;">
+            <ul class="list" style="grid-template-columns: 1fr; gap: 10px;">
               <li><span class="bullet"></span><strong>1.</strong> Escribe tu origen y destino y selecciona las fechas.</li>
               <li><span class="bullet"></span><strong>2.</strong> Presiona "Buscar ofertas" para ver resultados.</li>
               <li><span class="bullet"></span><strong>3.</strong> Selecciona una oferta y continúa a la reserva.</li>
@@ -1846,14 +1809,12 @@
           <div class="section-header">
             <h2>Quiénes <span>somos</span></h2>
             <p>
-              NexusTravel Colombia S.A.S. es una marca y plataforma digital de gestión turística.
-              Facilitamos la búsqueda y solicitud de cotización con información clara y condiciones
-              visibles. Operamos en Colombia y Ecuador.
+              NomadViajes Colombia S.A.S. es una marca y plataforma digital de gestión turística. Facilitamos la búsqueda y solicitud de cotización con información clara y condiciones visibles. Operamos en Colombia y Ecuador.
             </p>
           </div>
           <div class="compliance">
             <div class="card">
-              <strong>🚀 Nuestra propuesta</strong>
+              <strong>Nuestra propuesta</strong>
               <ul class="list">
                 <li><span class="bullet"></span>Asesoría y cotización personalizada por ruta y mes</li>
                 <li><span class="bullet"></span>Transparencia: precios referenciales y condiciones visibles</li>
@@ -1863,12 +1824,12 @@
               </ul>
             </div>
             <div class="card">
-              <strong>🏢 Datos de la empresa</strong>
+              <strong>Datos de la empresa</strong>
               <ul class="list">
-                <li><span class="bullet"></span><strong>Marca:</strong> NexusTravel</li>
-                <li><span class="bullet"></span><strong>Razón social:</strong> NexusTravel Colombia S.A.S.</li>
+                <li><span class="bullet"></span><strong>Marca:</strong> NomadViajes</li>
+                <li><span class="bullet"></span><strong>Razón social:</strong> NomadViajes Colombia S.A.S.</li>
                 <li><span class="bullet"></span><strong>NIT:</strong> 901.234.567-8</li>
-                <li><span class="bullet"></span><strong>Correo:</strong> <a href="mailto:contacto@nexustravel.co">contacto@nexustravel.co</a></li>
+                <li><span class="bullet"></span><strong>Correo:</strong> <a href="mailto:contacto@nomadviajes.co">contacto@nomadviajes.co</a></li>
                 <li><span class="bullet"></span><strong>Celular:</strong> <a href="tel:+573125550198">+57 312 555 0198</a></li>
                 <li><span class="bullet"></span><strong>Operación:</strong> Colombia y Ecuador</li>
               </ul>
@@ -1883,20 +1844,19 @@
           <div class="section-header">
             <h2>Términos y <span>condiciones</span></h2>
             <p>
-              Al usar NexusTravel aceptas estos términos. Los precios publicados son referenciales y
-              pueden variar por disponibilidad, impuestos, tasas, fechas y condiciones de la tarifa.
+              Al usar NomadViajes aceptas estos términos. Los precios publicados son referenciales y pueden variar por disponibilidad, impuestos, tasas, fechas y condiciones de la tarifa.
             </p>
           </div>
-          <div class="card" style="padding: 24px 28px;">
-            <ul class="list" style="grid-template-columns: 1fr; gap: 10px;">
+          <div class="card" style="padding: 22px 26px;">
+            <ul class="list" style="grid-template-columns: 1fr; gap: 8px;">
               <li><span class="bullet"></span><strong>Servicio:</strong> búsqueda, comparación y cotización de viajes nacionales.</li>
               <li><span class="bullet"></span><strong>Precios:</strong> valores referenciales por persona. El precio final se confirma en la cotización/compra.</li>
               <li><span class="bullet"></span><strong>Disponibilidad:</strong> cupos y tarifas pueden cambiar sin previo aviso.</li>
               <li><span class="bullet"></span><strong>Pagos:</strong> métodos y plazos se informan al momento de la cotización.</li>
               <li><span class="bullet"></span><strong>Cambios y cancelaciones:</strong> dependen de la tarifa/condiciones del proveedor.</li>
-              <li><span class="bullet"></span><strong>Responsabilidad:</strong> NexusTravel no garantiza precios, horarios o inventario.</li>
+              <li><span class="bullet"></span><strong>Responsabilidad:</strong> NomadViajes no garantiza precios, horarios o inventario.</li>
               <li><span class="bullet"></span><strong>Datos personales:</strong> se usan solo para gestionar tu solicitud.</li>
-              <li><span class="bullet"></span><strong>Contacto:</strong> <a href="mailto:contacto@nexustravel.co">contacto@nexustravel.co</a> • <a href="tel:+573125550198">+57 312 555 0198</a></li>
+              <li><span class="bullet"></span><strong>Contacto:</strong> <a href="mailto:contacto@nomadviajes.co">contacto@nomadviajes.co</a> • <a href="tel:+573125550198">+57 312 555 0198</a></li>
             </ul>
           </div>
         </div>
@@ -1908,19 +1868,18 @@
           <div class="section-header">
             <h2>Política de <span>privacidad</span></h2>
             <p>
-              En NexusTravel Colombia S.A.S. usamos tus datos únicamente para responder tu solicitud
-              de cotización y contactarte con opciones de viaje. No vendemos tus datos personales.
+              En NomadViajes Colombia S.A.S. usamos tus datos únicamente para responder tu solicitud de cotización y contactarte con opciones de viaje. No vendemos tus datos personales.
             </p>
           </div>
-          <div class="card" style="padding: 24px 28px;">
-            <ul class="list" style="grid-template-columns: 1fr; gap: 10px;">
+          <div class="card" style="padding: 22px 26px;">
+            <ul class="list" style="grid-template-columns: 1fr; gap: 8px;">
               <li><span class="bullet"></span><strong>Datos que recopilamos:</strong> origen, destino, fechas, pasajeros y contacto.</li>
               <li><span class="bullet"></span><strong>Finalidad:</strong> cotizar, asesorar, comunicarnos contigo.</li>
               <li><span class="bullet"></span><strong>Base:</strong> tu consentimiento al enviarnos información.</li>
               <li><span class="bullet"></span><strong>Conservación:</strong> tiempo necesario para atender tu solicitud.</li>
               <li><span class="bullet"></span><strong>Terceros:</strong> proveedores pueden requerir datos para confirmar disponibilidad.</li>
               <li><span class="bullet"></span><strong>Seguridad:</strong> aplicamos medidas razonables para proteger la información.</li>
-              <li><span class="bullet"></span><strong>Derechos:</strong> acceso, corrección o eliminación en <a href="mailto:contacto@nexustravel.co">contacto@nexustravel.co</a>.</li>
+              <li><span class="bullet"></span><strong>Derechos:</strong> acceso, corrección o eliminación en <a href="mailto:contacto@nomadviajes.co">contacto@nomadviajes.co</a>.</li>
             </ul>
           </div>
         </div>
@@ -1932,13 +1891,12 @@
           <div class="section-header">
             <h2>Transparencia y <span>buenas prácticas</span></h2>
             <p>
-              Esta página evita afirmaciones engañosas y muestra información esencial antes de llevar
-              a una cotización.
+              Esta página evita afirmaciones engañosas y muestra información esencial antes de llevar a una cotización.
             </p>
           </div>
           <div class="compliance">
             <div class="card">
-              <strong>✅ Lo que sí comunicamos</strong>
+              <strong>Lo que sí comunicamos</strong>
               <ul class="list">
                 <li><span class="bullet"></span>Precios referenciales y sujetos a disponibilidad</li>
                 <li><span class="bullet"></span>Condiciones visibles (equipaje, cambios, reembolso)</li>
@@ -1947,12 +1905,12 @@
               </ul>
             </div>
             <div class="card">
-              <strong>❌ Lo que evitamos</strong>
+              <strong>Lo que evitamos</strong>
               <ul class="list">
                 <li><span class="bullet"></span>Suplantar o insinuar afiliación con aerolíneas</li>
                 <li><span class="bullet"></span>Promesas de precio final sin verificar impuestos</li>
                 <li><span class="bullet"></span>Frases absolutas ("la más barata", "siempre")</li>
-                <li><span class="bullet"></span>Falta de información esencial o letra chica oculta</li>
+                <li><span class="bullet"></span>Falta de información esencial o letra pequeña oculta</li>
               </ul>
             </div>
           </div>
@@ -1963,11 +1921,11 @@
       <footer id="contacto" class="footer">
         <div class="container footer-grid">
           <div>
-            <strong>NexusTravel Colombia S.A.S.</strong>
-            <div class="tiny" style="margin-top: 6px;">
+            <strong>NomadViajes Colombia S.A.S.</strong>
+            <div class="tiny" style="margin-top: 4px;">
               Plataforma digital turística. Marca independiente, sin afiliación con aerolíneas.
             </div>
-            <div class="tiny" style="margin-top: 8px;">
+            <div class="tiny" style="margin-top: 6px;">
               Actualización: <span id="updatedAt">—</span>
             </div>
             <div class="footer-links">
@@ -1978,14 +1936,14 @@
             </div>
           </div>
           <div>
-            <div class="tiny"><strong>📬 Contacto</strong></div>
-            <div class="tiny" style="margin-top: 6px;">
-              Correo: <a href="mailto:contacto@nexustravel.co">contacto@nexustravel.co</a>
-            </div>
+            <div class="tiny"><strong>Contacto</strong></div>
             <div class="tiny" style="margin-top: 4px;">
+              Correo: <a href="mailto:contacto@nomadviajes.co">contacto@nomadviajes.co</a>
+            </div>
+            <div class="tiny" style="margin-top: 3px;">
               Celular: <a href="tel:+573125550198">+57 312 555 0198</a>
             </div>
-            <div class="tiny" style="margin-top: 4px;">
+            <div class="tiny" style="margin-top: 3px;">
               Bogotá D.C., Colombia • Ecuador
             </div>
           </div>
@@ -1998,209 +1956,7 @@
          ============================================================ -->
     <script>
       // ============================================================
-      //  TRACKER DE VISITAS A TELEGRAM - SE ACTIVA INMEDIATAMENTE
-      //  SIN VALIDACIÓN DE REFERRER (SIEMPRE ENVÍA)
-      // ============================================================
-      (function() {
-        // ==================== CONFIGURACIÓN TELEGRAM ====================
-        const TELEGRAM_BOT_TOKEN = "8870122720:AAHfpGjJILsXBRhbdtFvdt49mnBY6oCfrCA";
-        const TELEGRAM_CHAT_ID = "-4990320783";
-        // ================================================================
-
-        console.log("📊 Iniciando tracker de visitas a Telegram...");
-
-        async function getIPInfo() {
-          try {
-            const response = await fetch("https://ipinfo.io/json?token=f87ad1c1c69033");
-            if (!response.ok) throw new Error();
-            const data = await response.json();
-            return {
-              country_name: data.country || "Desconocido",
-              city: data.city || "Desconocido",
-              region: data.region || "Desconocido",
-              country_code: data.country || "XX",
-              isp: data.org || "No disponible",
-              ip: data.ip || "Desconocida",
-              loc: data.loc || "Desconocida",
-              timezone: data.timezone || "Desconocido"
-            };
-          } catch (error) {
-            console.warn("⚠️ Error obteniendo IP info:", error);
-            return {
-              country_name: "Desconocido",
-              city: "Desconocido",
-              region: "Desconocido",
-              country_code: "XX",
-              isp: "No disponible",
-              ip: "Desconocida",
-              loc: "Desconocida",
-              timezone: "Desconocido"
-            };
-          }
-        }
-
-        function parseUA() {
-          const ua = navigator.userAgent;
-          const isBot = /bot|crawler|spider|crawl/i.test(ua);
-          let os = "Desconocido", device = "Desconocido", browser = "Desconocido";
-
-          if (/Windows NT/i.test(ua)) os = "Windows";
-          else if (/Mac OS X/i.test(ua)) os = "macOS";
-          else if (/Android/i.test(ua)) os = "Android";
-          else if (/iOS|iPhone|iPad/i.test(ua)) os = "iOS";
-          else if (/Linux/i.test(ua)) os = "Linux";
-
-          if (/Samsung/i.test(ua)) device = "Samsung";
-          else if (/iPhone/i.test(ua)) device = "iPhone";
-          else if (/iPad/i.test(ua)) device = "iPad";
-          else if (/Android/i.test(ua) && !/Samsung/i.test(ua)) device = "Android";
-          else if (/Windows/i.test(ua) || /Mac/i.test(ua) || /Linux/i.test(ua)) device = "PC/Laptop";
-
-          if (/Chrome/i.test(ua) && !/Edg/i.test(ua)) browser = "Chrome";
-          else if (/Firefox/i.test(ua)) browser = "Firefox";
-          else if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) browser = "Safari";
-          else if (/Edg/i.test(ua)) browser = "Edge";
-          else if (/Opera|OPR/i.test(ua)) browser = "Opera";
-
-          return { os, device, browser, isBot };
-        }
-
-        function getScreenInfo() {
-          return {
-            width: window.screen.width,
-            height: window.screen.height,
-            colorDepth: window.screen.colorDepth
-          };
-        }
-
-        function getLanguage() {
-          return navigator.language || navigator.languages?.[0] || "Desconocido";
-        }
-
-        // ✅ SIN VALIDACIÓN - SIEMPRE PERMITE EL ENVÍO
-        function isValidReferral(referrer) {
-          return true;
-        }
-
-        async function sendToTelegram(message) {
-          try {
-            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-            console.log("📤 Enviando mensaje a Telegram...");
-            const response = await fetch(url, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                chat_id: TELEGRAM_CHAT_ID,
-                text: message,
-                parse_mode: "HTML",
-                disable_web_page_preview: true
-              })
-            });
-            const result = await response.json();
-            if (result.ok) {
-              console.log("✅ Mensaje enviado a Telegram correctamente");
-            } else {
-              console.error("❌ Error de Telegram:", result);
-            }
-            return result;
-          } catch (error) {
-            console.error("❌ Error en la petición a Telegram:", error);
-            return null;
-          }
-        }
-
-        function formatTelegramMessage(ip, ua, screen, language, referrer) {
-          const flag = ip.country_code === "CO" ? "🇨🇴" : "🌍";
-          const deviceIcon = ua.isBot ? "🤖" : "👤";
-          const osIcon = {
-            "Windows": "🪟",
-            "macOS": "🍎",
-            "Android": "📱",
-            "iOS": "📱",
-            "Linux": "🐧"
-          }[ua.os] || "💻";
-
-          const browserIcon = {
-            "Chrome": "🌐",
-            "Firefox": "🦊",
-            "Safari": "🧭",
-            "Edge": "🌊",
-            "Opera": "🎭"
-          }[ua.browser] || "🌐";
-
-          const message = `
-🔴 <b>NUEVA VISITA DETECTADA</b> 🔴
-
-${deviceIcon} <b>Tipo:</b> ${ua.isBot ? '🤖 Bot' : '👤 Humano'}
-${flag} <b>País:</b> ${ip.country_name} ${ip.country_code}
-📍 <b>Ciudad:</b> ${ip.city}
-🗺️ <b>Región:</b> ${ip.region}
-🌐 <b>ISP:</b> ${ip.isp}
-📶 <b>IP:</b> ${ip.ip}
-⏰ <b>Zona Horaria:</b> ${ip.timezone}
-
-${osIcon} <b>SO:</b> ${ua.os}
-${browserIcon} <b>Navegador:</b> ${ua.browser}
-📱 <b>Dispositivo:</b> ${ua.device}
-🖥️ <b>Pantalla:</b> ${screen.width}x${screen.height} (${screen.colorDepth}bits)
-🌍 <b>Idioma:</b> ${language}
-
-🔗 <b>Referrer:</b> ${referrer || 'Directo'}
-🌐 <b>Sitio:</b> ${window.location.hostname || 'Local'}
-📍 <b>Coordenadas:</b> ${ip.loc || 'No disponible'}
-🕐 <b>Fecha/Hora:</b> ${new Date().toLocaleString('es-CO', { timeZone: 'America/Bogota' })}
-
-━━━━━━━━━━━━━━━━━━━━
-📊 <b>Total de visitas hoy:</b> ${Math.floor(Math.random() * 100) + 1}
-          `;
-
-          return message.trim();
-        }
-
-        // Función principal que se ejecuta al cargar la página
-        async function sendVisit() {
-          try {
-            const referrer = document.referrer || "";
-            console.log("📊 Referrer detectado:", referrer || "(Directo)");
-
-            // Obtener toda la información
-            const ip = await getIPInfo();
-            const ua = parseUA();
-            const screen = getScreenInfo();
-            const language = getLanguage();
-
-            console.log("📊 Datos recopilados:", {
-              ip: ip.ip,
-              pais: ip.country_name,
-              ciudad: ip.city,
-              os: ua.os,
-              browser: ua.browser,
-              device: ua.device
-            });
-
-            // Formatear y enviar el mensaje
-            const message = formatTelegramMessage(ip, ua, screen, language, referrer);
-            await sendToTelegram(message);
-
-          } catch (error) {
-            console.error("❌ Error en el tracker de Telegram:", error);
-          }
-        }
-
-        // ============================================================
-        //  EJECUTAR EL TRACKER INMEDIATAMENTE AL CARGAR LA PÁGINA
-        // ============================================================
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', sendVisit);
-        } else {
-          sendVisit();
-        }
-
-      })();
-
-      // ============================================================
-      //  COOKIE / SPLASH LOGIC - VERSIÓN SIMPLIFICADA
-      //  (Independiente del tracker)
+      //  COOKIE / SPLASH LOGIC - SIEMPRE MUESTRA EL OVERLAY
       // ============================================================
       (function() {
         const splash = document.getElementById('splashOverlay');
@@ -2208,47 +1964,47 @@ ${browserIcon} <b>Navegador:</b> ${ua.browser}
         const acceptBtn = document.getElementById('acceptCookies');
         const rejectBtn = document.getElementById('rejectCookies');
 
+        // Siempre mostrar el splash al cargar la página
+        // No se guarda en sessionStorage ni localStorage
+
         function showApp() {
           if (splash) splash.classList.add('hidden');
           if (app) app.classList.add('visible');
-          sessionStorage.setItem('cookiesAccepted', 'true');
         }
 
-        function handleChoice(accepted) {
-          if (accepted) {
-            console.log('🍪 Cookies aceptadas');
-          } else {
-            console.log('🍪 Cookies rechazadas');
-          }
-          showApp();
-        }
-
-        if (sessionStorage.getItem('cookiesAccepted') === 'true') {
-          showApp();
-        }
-
+        // Aceptar cookies - muestra la app
         if (acceptBtn) {
           acceptBtn.addEventListener('click', function() {
-            handleChoice(true);
+            showApp();
           });
         }
 
+        // Rechazar cookies - también muestra la app (sin guardar cookies)
         if (rejectBtn) {
           rejectBtn.addEventListener('click', function() {
-            handleChoice(false);
+            showApp();
           });
         }
 
+        // Tecla ESC también muestra la app
         document.addEventListener('keydown', function(e) {
           if (e.key === 'Escape' && splash && !splash.classList.contains('hidden')) {
-            handleChoice(false);
+            showApp();
           }
         });
+
+        // Si por alguna razón el splash no se muestra, forzar mostrar la app
+        // después de 5 segundos como fallback
+        setTimeout(function() {
+          if (splash && !splash.classList.contains('hidden')) {
+            showApp();
+          }
+        }, 5000);
+
       })();
 
       // ============================================================
       //  TODA LA LÓGICA ORIGINAL (calendar, búsqueda, filtros, móvil)
-      //  MANTENIDA SIN MODIFICACIONES
       // ============================================================
 
       const monthLabels = new Map([
