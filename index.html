@@ -1,2547 +1,764 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="NomadViajes: plataforma profesional para cotizar viajes nacionales en Colombia. Busca ofertas por ciudad y mes con total transparencia."
-    />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈</text></svg>" type="image/svg+xml" />
-    <title>NomadViajes | Plataforma de viajes en Colombia</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GasRápido | Recarga de Pipetas a Domicilio</title>
+
     <style>
-      /* ===== ROOT ===== */
-      :root {
-        --primary: #1E3A8A;
-        --primary-dark: #1A367C;
-        --primary-light: #2563EB;
-        --primary-glow: rgba(30, 58, 138, 0.10);
-        --primary-glow-strong: rgba(30, 58, 138, 0.20);
-        --accent: #3B82F6;
-        --accent-light: #60A5FA;
-        --white: #FFFFFF;
-        --off-white: #F8FAFC;
-        --gray-50: #F1F5F9;
-        --gray-100: #E2E8F0;
-        --gray-200: #CBD5E1;
-        --gray-300: #94A3B8;
-        --gray-500: #64748B;
-        --gray-700: #334155;
-        --gray-900: #0F172A;
-        --radius-sm: 6px;
-        --radius-md: 10px;
-        --radius-lg: 14px;
-        --radius-xl: 20px;
-        --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
-        --shadow-card: 0 4px 20px rgba(30, 58, 138, 0.06);
-        --shadow-card-hover: 0 8px 32px rgba(30, 58, 138, 0.10);
-        --shadow-elevated: 0 20px 60px rgba(30, 58, 138, 0.10);
-        --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        --gradient-hero: linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%);
-        --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      [hidden] {
-        display: none !important;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
-      body {
-        font-family: var(--font-family);
-        background: var(--off-white);
-        color: var(--gray-900);
-        line-height: 1.6;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      a:focus-visible,
-      button:focus-visible,
-      select:focus-visible,
-      input:focus-visible {
-        outline: 2px solid var(--primary);
-        outline-offset: 2px;
-        box-shadow: 0 0 0 4px var(--primary-glow);
-      }
-
-      /* ============================================================
-         SPLASH / COOKIE OVERLAY - VERSIÓN COMPACTA
-         ============================================================ */
-      #splashOverlay {
-        position: fixed;
-        inset: 0;
-        z-index: 9999;
-        background: rgba(30, 58, 138, 0.55);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 16px;
-        animation: splashFadeIn 0.3s ease;
-      }
-
-      #splashOverlay.hidden {
-        display: none;
-      }
-
-      @keyframes splashFadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-      }
-
-      .splash-card {
-        max-width: 380px;
-        width: 100%;
-        background: var(--white);
-        border-radius: var(--radius-md);
-        padding: 28px 32px 24px;
-        text-align: center;
-        box-shadow: var(--shadow-elevated);
-        animation: splashSlideUp 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-
-      @keyframes splashSlideUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-
-      .splash-text {
-        color: var(--gray-700);
-        font-size: 14px;
-        line-height: 1.7;
-        margin-bottom: 22px;
-      }
-
-      .splash-text strong {
-        color: var(--primary);
-      }
-
-      .splash-buttons {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-      }
-
-      @media (max-width: 400px) {
-        .splash-buttons {
-          grid-template-columns: 1fr;
+        /* ===== RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .splash-card {
-          padding: 20px 16px 16px;
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffffff;
+            color: #1a1a2e;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
-      }
 
-      .btn-splash {
-        padding: 11px 20px;
-        border: none;
-        border-radius: var(--radius-sm);
-        font-family: inherit;
-        font-weight: 600;
-        font-size: 14px;
-        cursor: pointer;
-        transition: var(--transition);
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-      }
-
-      .btn-splash:active {
-        transform: scale(0.97);
-      }
-
-      .btn-splash-primary {
-        background: var(--primary);
-        color: var(--white);
-        box-shadow: 0 4px 12px var(--primary-glow-strong);
-      }
-
-      .btn-splash-primary:hover {
-        background: var(--primary-light);
-        transform: translateY(-1px);
-        box-shadow: 0 6px 20px var(--primary-glow-strong);
-      }
-
-      .btn-splash-secondary {
-        background: var(--gray-50);
-        color: var(--gray-700);
-        border: 1.5px solid var(--gray-100);
-      }
-
-      .btn-splash-secondary:hover {
-        background: var(--white);
-        border-color: var(--gray-200);
-      }
-
-      /* ============================================================
-         MAIN APP
-         ============================================================ */
-      #app {
-        opacity: 0;
-        transition: opacity 0.5s ease;
-        pointer-events: none;
-      }
-
-      #app.visible {
-        opacity: 1;
-        pointer-events: auto;
-      }
-
-      .container {
-        width: min(1140px, calc(100% - 48px));
-        margin: 0 auto;
-      }
-
-      /* ===== TOPBAR ===== */
-      .topbar {
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        background: rgba(255, 255, 255, 0.92);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border-bottom: 1px solid var(--gray-100);
-      }
-
-      .topbar-inner {
-        display: flex;
-        gap: 20px;
-        align-items: center;
-        justify-content: space-between;
-        padding: 12px 0;
-      }
-
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-weight: 800;
-        font-size: 18px;
-        color: var(--primary);
-        letter-spacing: -0.5px;
-        flex-shrink: 0;
-      }
-
-      .brand-icon {
-        width: 34px;
-        height: 34px;
-        border-radius: var(--radius-sm);
-        background: var(--gradient-hero);
-        display: grid;
-        place-items: center;
-        color: white;
-        font-weight: 800;
-        font-size: 14px;
-        box-shadow: 0 4px 10px var(--primary-glow-strong);
-      }
-
-      .brand span {
-        color: var(--accent);
-      }
-
-      .nav {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-      }
-
-      .nav a {
-        padding: 7px 14px;
-        border-radius: 50px;
-        font-weight: 500;
-        font-size: 13px;
-        color: var(--gray-700);
-        transition: var(--transition);
-        letter-spacing: -0.2px;
-      }
-
-      .nav a:hover {
-        background: var(--primary-glow);
-        color: var(--primary);
-      }
-
-      .nav a.whatsapp-link {
-        background: #25D366;
-        color: white;
-        padding: 7px 18px;
-        box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
-        font-weight: 600;
-      }
-
-      .nav a.whatsapp-link:hover {
-        background: #1da851;
-        transform: translateY(-1px);
-        box-shadow: 0 6px 20px rgba(37, 211, 102, 0.30);
-      }
-
-      .menu-btn {
-        display: none;
-        align-items: center;
-        justify-content: center;
-        width: 38px;
-        height: 38px;
-        border-radius: var(--radius-sm);
-        border: 1px solid var(--gray-100);
-        background: white;
-        color: var(--gray-900);
-        cursor: pointer;
-        flex: 0 0 auto;
-        transition: var(--transition);
-      }
-
-      .menu-btn:hover {
-        background: var(--gray-50);
-      }
-
-      .menu-icon {
-        width: 18px;
-        height: 12px;
-        position: relative;
-        display: inline-block;
-      }
-
-      .menu-icon::before,
-      .menu-icon::after,
-      .menu-icon span {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        height: 2px;
-        border-radius: 999px;
-        background: var(--gray-700);
-        transition: var(--transition);
-      }
-
-      .menu-icon::before { top: 0; }
-      .menu-icon span { top: 5px; }
-      .menu-icon::after { bottom: 0; }
-
-      @media (max-width: 900px) {
-        .nav {
-          display: none;
+        /* ===== COOKIE OVERLAY ===== */
+        .cookie-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(26, 26, 46, 0.55);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            animation: cookieFadeIn 0.3s ease;
         }
-        .menu-btn {
-          display: inline-flex;
+
+        .cookie-overlay.hidden {
+            display: none;
         }
-      }
 
-      /* ===== MOBILE MENU ===== */
-      .mobile-menu {
-        position: fixed;
-        inset: 0;
-        z-index: 200;
-        background: rgba(30, 58, 138, 0.25);
-        backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(6px);
-        padding: 16px;
-        animation: fadeIn 0.2s ease;
-      }
-
-      .mobile-menu[hidden] {
-        display: none;
-      }
-
-      .mobile-menu-panel {
-        margin-left: auto;
-        width: min(320px, 100%);
-        border-radius: var(--radius-lg);
-        background: white;
-        box-shadow: var(--shadow-elevated);
-        overflow: hidden;
-        animation: slideInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-
-      .mobile-menu-head {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        padding: 14px 18px;
-        border-bottom: 1px solid var(--gray-100);
-      }
-
-      .mobile-menu-title {
-        font-weight: 800;
-        font-size: 16px;
-        color: var(--primary);
-        letter-spacing: -0.3px;
-      }
-
-      .menu-close {
-        width: 34px;
-        height: 34px;
-        border-radius: 50%;
-        border: 1px solid var(--gray-100);
-        background: white;
-        color: var(--gray-700);
-        cursor: pointer;
-        font-size: 16px;
-        transition: var(--transition);
-        display: grid;
-        place-items: center;
-      }
-
-      .menu-close:hover {
-        background: var(--gray-50);
-      }
-
-      .mobile-menu-links {
-        display: grid;
-        padding: 10px;
-        gap: 2px;
-        max-height: 60vh;
-        overflow-y: auto;
-      }
-
-      .mobile-menu-links a {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 10px 14px;
-        border-radius: var(--radius-sm);
-        font-weight: 500;
-        color: var(--gray-700);
-        transition: var(--transition);
-        font-size: 14px;
-      }
-
-      .mobile-menu-links a:hover {
-        background: var(--primary-glow);
-        color: var(--primary);
-      }
-
-      .mobile-menu-links a.whatsapp-link {
-        background: #25D366;
-        color: white;
-        margin-top: 6px;
-        justify-content: center;
-        font-weight: 600;
-      }
-
-      .mobile-menu-links a.whatsapp-link:hover {
-        background: #1da851;
-      }
-
-      .mobile-menu-foot {
-        padding: 12px 18px;
-        color: var(--gray-500);
-        font-size: 11px;
-        border-top: 1px solid var(--gray-100);
-        text-align: center;
-      }
-
-      @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-      }
-
-      @keyframes slideInRight {
-        from { transform: translateX(20px); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-      }
-
-      /* ===== HERO SECTION ===== */
-      .hero {
-        padding: 40px 0 32px;
-      }
-
-      .hero-grid {
-        display: grid;
-        gap: 28px;
-        grid-template-columns: 1fr 1fr;
-        align-items: stretch;
-      }
-
-      @media (max-width: 900px) {
-        .hero-grid {
-          grid-template-columns: 1fr;
+        @keyframes cookieFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-      }
 
-      .card {
-        background: var(--white);
-        border-radius: var(--radius-lg);
-        box-shadow: var(--shadow-card);
-        border: 1px solid var(--gray-100);
-        transition: var(--transition);
-      }
-
-      .card:hover {
-        box-shadow: var(--shadow-card-hover);
-      }
-
-      .hero-card {
-        padding: 32px 36px;
-        background: var(--white);
-        border: 1px solid var(--gray-100);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-
-      .hero-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 5px 14px;
-        border-radius: 50px;
-        background: var(--primary-glow);
-        color: var(--primary);
-        font-weight: 600;
-        font-size: 11px;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-        margin-bottom: 14px;
-        width: fit-content;
-      }
-
-      .hero-badge .dot {
-        width: 5px;
-        height: 5px;
-        border-radius: 50%;
-        background: #25D366;
-        display: inline-block;
-        animation: pulse 2s ease-in-out infinite;
-      }
-
-      @keyframes pulse {
-        0%, 100% { opacity: 1; transform: scale(1); }
-        50% { opacity: 0.5; transform: scale(1.2); }
-      }
-
-      h1 {
-        font-size: clamp(28px, 3.2vw, 40px);
-        font-weight: 900;
-        line-height: 1.1;
-        letter-spacing: -0.03em;
-        color: var(--gray-900);
-        margin: 0 0 12px;
-      }
-
-      h1 .highlight {
-        background: linear-gradient(135deg, var(--primary), var(--primary-light));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
-      .lead {
-        font-size: 15px;
-        color: var(--gray-500);
-        max-width: 90%;
-        margin-bottom: 18px;
-        line-height: 1.8;
-      }
-
-      .trust-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-top: 4px;
-      }
-
-      .pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 5px 14px;
-        border-radius: 50px;
-        background: var(--gray-50);
-        border: 1px solid var(--gray-100);
-        color: var(--gray-700);
-        font-weight: 500;
-        font-size: 12px;
-      }
-
-      .pill .icon {
-        font-size: 13px;
-      }
-
-      .tiny {
-        font-size: 12px;
-        color: var(--gray-500);
-        font-weight: 400;
-        line-height: 1.6;
-      }
-
-      .hero-cta-row {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        margin-top: 16px;
-      }
-
-      /* ===== SEARCH CARD ===== */
-      .search-card {
-        padding: 24px 28px;
-        background: var(--white);
-        border: 1px solid var(--gray-100);
-        border-radius: var(--radius-lg);
-        display: flex;
-        flex-direction: column;
-      }
-
-      .search-title {
-        display: flex;
-        gap: 12px;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 16px;
-      }
-
-      .search-title h2 {
-        font-size: 16px;
-        font-weight: 800;
-        color: var(--gray-900);
-        letter-spacing: -0.3px;
-      }
-
-      .search-title h2 span {
-        color: var(--primary);
-      }
-
-      .hint {
-        font-weight: 600;
-        font-size: 12px;
-        color: var(--gray-500);
-        background: var(--gray-50);
-        padding: 4px 14px;
-        border-radius: 50px;
-        white-space: nowrap;
-      }
-
-      form {
-        display: grid;
-        gap: 14px;
-        flex: 1;
-      }
-
-      .field {
-        display: grid;
-        gap: 4px;
-      }
-
-      .field label {
-        font-weight: 600;
-        font-size: 12px;
-        color: var(--gray-700);
-        letter-spacing: -0.2px;
-        text-transform: uppercase;
-      }
-
-      .field input,
-      .field select {
-        width: 100%;
-        border-radius: var(--radius-sm);
-        border: 1.5px solid var(--gray-100);
-        background: var(--white);
-        color: var(--gray-900);
-        padding: 10px 14px;
-        font-weight: 500;
-        font-size: 14px;
-        font-family: inherit;
-        transition: var(--transition);
-      }
-
-      .field input:focus,
-      .field select:focus {
-        border-color: var(--primary);
-        background: var(--white);
-        box-shadow: 0 0 0 4px var(--primary-glow);
-      }
-
-      .field input::placeholder {
-        color: var(--gray-300);
-        font-weight: 400;
-      }
-
-      .row2 {
-        display: grid;
-        gap: 14px;
-        grid-template-columns: 1fr 1fr;
-      }
-
-      @media (max-width: 520px) {
-        .row2 {
-          grid-template-columns: 1fr;
+        .cookie-card {
+            max-width: 420px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 32px 28px 24px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            animation: cookieSlideUp 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            border-top: 5px solid #e91e63;
         }
-      }
 
-      .trip-toggle {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
-        margin: 0 0 2px;
-      }
-
-      .trip-radio {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border-width: 0;
-      }
-
-      .trip-pill {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-        border-radius: var(--radius-sm);
-        padding: 10px 12px;
-        font-weight: 600;
-        font-size: 13px;
-        border: 1.5px solid var(--gray-100);
-        background: var(--white);
-        color: var(--gray-700);
-        cursor: pointer;
-        user-select: none;
-        transition: var(--transition);
-      }
-
-      .trip-pill:hover {
-        border-color: var(--gray-200);
-        background: var(--gray-50);
-      }
-
-      .trip-radio:checked + .trip-pill {
-        background: var(--primary);
-        color: white;
-        border-color: var(--primary);
-        box-shadow: 0 4px 12px var(--primary-glow-strong);
-      }
-
-      .trip-radio:focus-visible + .trip-pill {
-        outline: 2px solid var(--primary);
-        outline-offset: 2px;
-      }
-
-      .actions {
-        display: grid;
-        gap: 10px;
-        grid-template-columns: 1fr 1fr;
-        margin-top: 4px;
-      }
-
-      @media (max-width: 480px) {
-        .actions {
-          grid-template-columns: 1fr;
+        @keyframes cookieSlideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-      }
 
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        border: 0;
-        cursor: pointer;
-        border-radius: var(--radius-sm);
-        padding: 12px 18px;
-        font-weight: 600;
-        font-size: 14px;
-        font-family: inherit;
-        transition: var(--transition);
-        letter-spacing: -0.2px;
-      }
-
-      .btn:active {
-        transform: scale(0.97);
-      }
-
-      .btn-primary {
-        background: var(--gradient-hero);
-        color: white;
-        box-shadow: 0 4px 16px var(--primary-glow-strong);
-      }
-
-      .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 24px var(--primary-glow-strong);
-      }
-
-      .btn-secondary {
-        background: var(--gray-50);
-        border: 1.5px solid var(--gray-100);
-        color: var(--gray-700);
-      }
-
-      .btn-secondary:hover {
-        background: white;
-        border-color: var(--gray-200);
-      }
-
-      .btn-inline {
-        width: auto;
-        padding: 8px 18px;
-        font-size: 12px;
-      }
-
-      .msg {
-        min-height: 20px;
-        font-size: 13px;
-        font-weight: 500;
-        color: var(--gray-500);
-        grid-column: 1 / -1;
-      }
-
-      .msg.error {
-        color: #DC3545;
-      }
-
-      .msg.success {
-        color: #28A745;
-      }
-
-      /* ===== SECTIONS ===== */
-      .section {
-        padding: 40px 0 56px;
-        border-top: 1px solid var(--gray-100);
-      }
-
-      .section:first-of-type {
-        border-top: none;
-      }
-
-      .section-header {
-        margin-bottom: 24px;
-      }
-
-      .section-header h2 {
-        font-size: clamp(22px, 2.4vw, 30px);
-        font-weight: 900;
-        letter-spacing: -0.02em;
-        color: var(--gray-900);
-        margin-bottom: 6px;
-      }
-
-      .section-header h2 span {
-        color: var(--primary);
-      }
-
-      .section-header p {
-        color: var(--gray-500);
-        font-size: 15px;
-        max-width: 70ch;
-        line-height: 1.7;
-      }
-
-      /* ===== OFFERS ===== */
-      .offers {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
-      }
-
-      @media (max-width: 980px) {
-        .offers {
-          grid-template-columns: repeat(2, 1fr);
+        .cookie-card h2 {
+            font-size: 22px;
+            font-weight: 800;
+            color: #1a1a2e;
+            margin-bottom: 12px;
         }
-      }
 
-      @media (max-width: 620px) {
-        .offers {
-          grid-template-columns: 1fr;
+        .cookie-card h2 span {
+            color: #e91e63;
         }
-      }
 
-      .offer {
-        padding: 18px 20px;
-        border-radius: var(--radius-md);
-        background: var(--white);
-        border: 1px solid var(--gray-100);
-        box-shadow: var(--shadow-card);
-        display: grid;
-        gap: 8px;
-        transition: var(--transition);
-        border-left: 3px solid var(--primary);
-      }
-
-      .offer:hover {
-        transform: translateY(-4px);
-        box-shadow: var(--shadow-card-hover);
-        border-color: var(--gray-200);
-        border-left-color: var(--accent);
-      }
-
-      .offer-head {
-        display: flex;
-        align-items: baseline;
-        justify-content: space-between;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-
-      .route {
-        font-weight: 700;
-        font-size: 15px;
-        color: var(--gray-900);
-        letter-spacing: -0.2px;
-      }
-
-      .route .arrow {
-        color: var(--primary);
-        margin: 0 4px;
-        font-weight: 700;
-      }
-
-      .month-badge {
-        font-weight: 600;
-        font-size: 11px;
-        color: var(--primary-dark);
-        background: var(--primary-glow);
-        padding: 3px 12px;
-        border-radius: 50px;
-        white-space: nowrap;
-      }
-
-      .price {
-        font-weight: 800;
-        font-size: 24px;
-        letter-spacing: -0.4px;
-        color: var(--primary);
-      }
-
-      .price small {
-        font-size: 13px;
-        color: var(--gray-500);
-        font-weight: 500;
-      }
-
-      .offer-meta {
-        color: var(--gray-500);
-        font-weight: 400;
-        font-size: 13px;
-        line-height: 1.5;
-      }
-
-      .offer-actions {
-        display: flex;
-        gap: 8px;
-        margin-top: 4px;
-      }
-
-      .offer-actions .btn {
-        flex: 1;
-        padding: 8px 12px;
-        font-size: 12px;
-      }
-
-      /* ===== GALLERY ===== */
-      .gallery {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
-      }
-
-      @media (max-width: 980px) {
-        .gallery {
-          grid-template-columns: repeat(2, 1fr);
+        .cookie-text {
+            color: #4a5568;
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 22px;
         }
-      }
 
-      @media (max-width: 620px) {
-        .gallery {
-          grid-template-columns: 1fr;
+        .cookie-text strong {
+            color: #1a1a2e;
         }
-      }
 
-      .gallery-item {
-        border-radius: var(--radius-md);
-        background: var(--white);
-        border: 1px solid var(--gray-100);
-        overflow: hidden;
-        box-shadow: var(--shadow-card);
-        transition: var(--transition);
-      }
-
-      .gallery-item:hover {
-        transform: translateY(-4px);
-        box-shadow: var(--shadow-card-hover);
-      }
-
-      .gallery-media {
-        height: 150px;
-        background: linear-gradient(135deg, var(--primary-glow), var(--gray-50));
-        display: grid;
-        place-items: center;
-        font-size: 36px;
-        color: var(--gray-300);
-      }
-
-      .gallery-caption {
-        padding: 14px 18px;
-        font-weight: 600;
-        color: var(--gray-900);
-        font-size: 14px;
-        background: var(--white);
-        border-top: 1px solid var(--gray-100);
-      }
-
-      /* ===== COMPLIANCE / SERVICIOS ===== */
-      .compliance {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
-      }
-
-      @media (max-width: 820px) {
-        .compliance {
-          grid-template-columns: 1fr;
+        .cookie-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
         }
-      }
 
-      .compliance .card {
-        padding: 20px 24px;
-        box-shadow: var(--shadow-card);
-        border: 1px solid var(--gray-100);
-        border-top: 3px solid var(--primary);
-      }
-
-      .compliance .card strong {
-        font-size: 15px;
-        color: var(--gray-900);
-        display: block;
-        margin-bottom: 10px;
-      }
-
-      .list {
-        display: grid;
-        gap: 6px;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
-
-      .list li {
-        display: grid;
-        grid-template-columns: 8px 1fr;
-        gap: 10px;
-        align-items: start;
-        color: var(--gray-600);
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 1.6;
-      }
-
-      .list li .bullet {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--primary);
-        margin-top: 6px;
-        flex-shrink: 0;
-      }
-
-      .list li strong {
-        color: var(--gray-900);
-        font-weight: 600;
-      }
-
-      .list li a {
-        color: var(--primary);
-        font-weight: 500;
-      }
-
-      .list li a:hover {
-        text-decoration: underline;
-      }
-
-      /* ===== FOOTER ===== */
-      .footer {
-        padding: 32px 0 40px;
-        border-top: 1px solid var(--gray-100);
-        background: var(--white);
-      }
-
-      .footer-grid {
-        display: grid;
-        gap: 24px;
-        grid-template-columns: 1.2fr 0.8fr;
-        align-items: start;
-      }
-
-      @media (max-width: 780px) {
-        .footer-grid {
-          grid-template-columns: 1fr;
+        @media (max-width: 420px) {
+            .cookie-buttons {
+                grid-template-columns: 1fr;
+            }
+            .cookie-card {
+                padding: 24px 20px 20px;
+            }
         }
-      }
 
-      .footer strong {
-        color: var(--gray-900);
-        font-weight: 700;
-      }
-
-      .footer a {
-        color: var(--primary);
-        font-weight: 500;
-        transition: var(--transition);
-      }
-
-      .footer a:hover {
-        color: var(--primary-light);
-        text-decoration: underline;
-      }
-
-      .footer .tiny {
-        margin-top: 4px;
-      }
-
-      .footer .tiny a {
-        font-weight: 400;
-      }
-
-      .footer-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px 16px;
-        margin-top: 8px;
-      }
-
-      .footer-links a {
-        font-size: 13px;
-      }
-
-      /* ===== CALENDAR OVERLAY ===== */
-      .calendar-overlay {
-        position: fixed;
-        inset: 0;
-        z-index: 300;
-        background: rgba(30, 58, 138, 0.35);
-        backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(6px);
-        padding: 16px;
-        display: grid;
-        place-items: center;
-        animation: fadeIn 0.2s ease;
-      }
-
-      .calendar-overlay[hidden] {
-        display: none;
-      }
-
-      .calendar-panel {
-        width: min(360px, 100%);
-        border-radius: var(--radius-lg);
-        background: var(--white);
-        box-shadow: var(--shadow-elevated);
-        overflow: hidden;
-        animation: scaleIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        border: 1px solid var(--gray-100);
-      }
-
-      @keyframes scaleIn {
-        from { transform: scale(0.95); opacity: 0; }
-        to { transform: scale(1); opacity: 1; }
-      }
-
-      .calendar-head {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 4px;
-        padding: 12px 16px;
-        border-bottom: 1px solid var(--gray-100);
-        background: var(--gray-50);
-      }
-
-      .calendar-title {
-        font-weight: 700;
-        font-size: 15px;
-        color: var(--primary);
-        letter-spacing: -0.2px;
-      }
-
-      .cal-btn {
-        width: 34px;
-        height: 34px;
-        border-radius: 50%;
-        border: 1px solid var(--gray-100);
-        background: var(--white);
-        color: var(--gray-700);
-        cursor: pointer;
-        font-weight: 600;
-        font-size: 14px;
-        transition: var(--transition);
-        display: grid;
-        place-items: center;
-      }
-
-      .cal-btn:hover {
-        background: var(--primary-glow);
-        border-color: var(--primary);
-        color: var(--primary);
-      }
-
-      .calendar-body {
-        padding: 14px 16px 16px;
-      }
-
-      .calendar-weekdays {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: 3px;
-        margin-bottom: 6px;
-        color: var(--gray-500);
-        font-weight: 600;
-        font-size: 11px;
-        text-align: center;
-        text-transform: uppercase;
-      }
-
-      .calendar-grid {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: 3px;
-      }
-
-      .day-btn {
-        border-radius: var(--radius-sm);
-        border: 1px solid transparent;
-        background: transparent;
-        color: var(--gray-900);
-        padding: 8px 0;
-        font-weight: 500;
-        font-size: 13px;
-        cursor: pointer;
-        transition: var(--transition);
-      }
-
-      .day-btn:hover:not(:disabled) {
-        background: var(--primary-glow);
-        border-color: var(--primary);
-        color: var(--primary);
-      }
-
-      .day-btn:disabled {
-        opacity: 0.25;
-        cursor: not-allowed;
-      }
-
-      .day-btn.selected {
-        background: var(--primary);
-        color: white;
-        border-color: var(--primary);
-        box-shadow: 0 4px 12px var(--primary-glow-strong);
-      }
-
-      .day-btn.muted {
-        color: var(--gray-300);
-      }
-
-      .day-btn.muted:hover:not(:disabled) {
-        background: var(--gray-50);
-        border-color: var(--gray-100);
-      }
-
-      /* ===== RESPONSIVE ===== */
-      @media (max-width: 768px) {
-        .hero-card {
-          padding: 24px 20px;
+        .btn-cookie {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 50px;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
-        .search-card {
-          padding: 18px 20px;
-        }
-        .lead {
-          max-width: 100%;
-        }
-        .offer-actions {
-          flex-direction: column;
-        }
-        .offer-actions .btn {
-          flex: none;
-        }
-      }
 
-      .sr-only {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border-width: 0;
-      }
+        .btn-cookie:active {
+            transform: scale(0.97);
+        }
+
+        .btn-cookie-primary {
+            background: #e91e63;
+            color: #ffffff;
+            box-shadow: 0 4px 16px rgba(233, 30, 99, 0.3);
+        }
+
+        .btn-cookie-primary:hover {
+            background: #c2185b;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(233, 30, 99, 0.35);
+        }
+
+        .btn-cookie-secondary {
+            background: #f5f5f5;
+            color: #1a1a2e;
+            border: 2px solid #e8e8e8;
+        }
+
+        .btn-cookie-secondary:hover {
+            background: #ffffff;
+            border-color: #d0d0d0;
+        }
+
+        .cookie-links {
+            margin-top: 16px;
+            font-size: 12px;
+            color: #718096;
+        }
+
+        .cookie-links a {
+            color: #e91e63;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .cookie-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== APP (oculto hasta aceptar cookies) ===== */
+        #app {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        #app.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            flex-wrap: wrap;
+            gap: 16px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: #1a1a2e;
+        }
+
+        .logo span {
+            color: #e91e63;
+        }
+
+        nav {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #e91e63;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            padding: 40px 40px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding: 20px;
+            }
+            header {
+                padding: 20px;
+            }
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 50px;
+            background: rgba(233, 30, 99, 0.08);
+            color: #e91e63;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 0.3px;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 900;
+            color: #1a1a2e;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 span {
+            color: #e91e63;
+        }
+
+        .hero p {
+            color: #4a5568;
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 24px;
+            max-width: 90%;
+        }
+
+        @media (max-width: 768px) {
+            .hero p {
+                max-width: 100%;
+            }
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .buttons {
+                justify-content: center;
+            }
+        }
+
+        .btn {
+            padding: 14px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.3s;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn.main {
+            background: #e91e63;
+            color: white;
+            box-shadow: 0 4px 16px rgba(233, 30, 99, 0.3);
+        }
+
+        .btn.main:hover {
+            background: #c2185b;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(233, 30, 99, 0.35);
+        }
+
+        .btn.second {
+            background: #f5f5f5;
+            color: #1a1a2e;
+            border: 2px solid #e8e8e8;
+        }
+
+        .btn.second:hover {
+            background: white;
+            border-color: #d0d0d0;
+            transform: translateY(-2px);
+        }
+
+        .gas-card {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cylinder {
+            width: 120px;
+            height: 240px;
+            background: linear-gradient(180deg, #e91e63, #c2185b);
+            border-radius: 60px 60px 20px 20px;
+            box-shadow: 0 20px 60px rgba(233, 30, 99, 0.2);
+            position: relative;
+        }
+
+        .cylinder::after {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 20px;
+            background: #bdc3c7;
+            border-radius: 10px 10px 0 0;
+        }
+
+        /* ===== SECTIONS ===== */
+        section {
+            padding: 60px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 40px 20px;
+            }
+        }
+
+        .title {
+            font-size: 36px;
+            font-weight: 900;
+            color: #1a1a2e;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .title span {
+            color: #e91e63;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            font-size: 18px;
+            margin-bottom: 48px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: white;
+            padding: 32px 24px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid rgba(233, 30, 99, 0.04);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(233, 30, 99, 0.06);
+            border-color: rgba(233, 30, 99, 0.08);
+        }
+
+        .card .icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .card h3 {
+            color: #1a1a2e;
+            margin-bottom: 8px;
+            font-size: 20px;
+        }
+
+        .card p {
+            color: #718096;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        section.highlight {
+            background: rgba(233, 30, 99, 0.02);
+            border-radius: 24px;
+        }
+
+        /* ===== CONTACTO ===== */
+        .contact {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .contact input,
+        .contact select,
+        .contact textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e8e8e8;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 14px;
+            margin-bottom: 14px;
+            transition: border-color 0.3s;
+            background: #fafafa;
+        }
+
+        .contact input:focus,
+        .contact select:focus,
+        .contact textarea:focus {
+            border-color: #e91e63;
+            outline: none;
+            background: white;
+        }
+
+        .contact textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .contact button {
+            width: 100%;
+            padding: 16px;
+            background: #e91e63;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .contact button:hover {
+            background: #c2185b;
+        }
+
+        /* ===== WHATSAPP FLOATING ===== */
+        .whatsapp {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #25D366;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        .whatsapp:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 28px rgba(37, 211, 102, 0.4);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 40px 20px 20px;
+            text-align: center;
+            color: #718096;
+            border-top: 1px solid #e8e8e8;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        footer strong {
+            color: #1a1a2e;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+            .title {
+                font-size: 26px;
+            }
+            .btn {
+                padding: 12px 24px;
+                font-size: 14px;
+            }
+            .whatsapp {
+                padding: 12px 18px;
+                font-size: 14px;
+                bottom: 16px;
+                right: 16px;
+            }
+        }
     </style>
-  </head>
-  <body>
-    <!-- ============================================================
-         SPLASH / COOKIE OVERLAY - VERSIÓN COMPACTA
-         ============================================================ -->
-    <div id="splashOverlay" role="dialog" aria-modal="true" aria-label="Política de cookies">
-      <div class="splash-card">
-        <div class="splash-text">
-          Utilizamos cookies para mejorar tu experiencia. Al aceptar, permites que usemos cookies para ofrecerte una navegación más fluida y contenido personalizado.
+</head>
+
+<body>
+
+    <!-- ===== COOKIE OVERLAY ===== -->
+    <div id="cookieOverlay" class="cookie-overlay" role="dialog" aria-modal="true" aria-label="Aviso de cookies">
+        <div class="cookie-card">
+            <h2> Aviso de <span>cookies</span></h2>
+            <p class="cookie-text">
+                Utilizamos cookies para mejorar tu experiencia en <strong>GasRápido</strong>.
+                Al aceptar, permites el uso de cookies para ofrecerte un servicio más rápido y personalizado.
+            </p>
+            <div class="cookie-buttons">
+                <button id="acceptCookies" class="btn-cookie btn-cookie-primary">
+                    Aceptar
+                </button>
+                <button id="rejectCookies" class="btn-cookie btn-cookie-secondary">
+                    Rechazar
+                </button>
+            </div>
+            <div class="cookie-links">
+                <a href="#privacidad">Política de Privacidad</a> ·
+                <a href="#cookies">Política de Cookies</a>
+            </div>
         </div>
-        <div class="splash-buttons">
-          <button id="acceptCookies" class="btn-splash btn-splash-primary">
-            Aceptar
-          </button>
-          <button id="rejectCookies" class="btn-splash btn-splash-secondary">
-            Rechazar
-          </button>
-        </div>
-      </div>
     </div>
 
-    <!-- ============================================================
-         MAIN APP
-         ============================================================ -->
+    <!-- ===== APP ===== -->
     <div id="app">
-      <!-- ===== TOPBAR ===== -->
-      <header class="topbar">
-        <div class="container topbar-inner">
-          <a class="brand" href="#inicio" aria-label="Ir al inicio">
-            <span class="brand-icon">✈</span>
-            <span>Nomad<span>Viajes</span></span>
-          </a>
-          <nav class="nav" aria-label="Navegación principal">
-            <a href="#buscar">Buscar</a>
-            <a href="#ofertas">Ofertas</a>
-            <a href="#servicios">Servicios</a>
-            <a href="#galeria">Galería</a>
-            <a href="#quienes-somos">Quiénes somos</a>
-            <a href="#transparencia">Transparencia</a>
-            <a href="#contacto">Contacto</a>
-            <a
-              href="https://wa.me/573125550198?text=Hola%20NomadViajes%2C%20quiero%20cotizar%20un%20viaje%20nacional%20en%20Colombia"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="whatsapp-link"
-            >
-              WhatsApp
-            </a>
-          </nav>
-          <button
-            id="menuBtn"
-            class="menu-btn"
-            type="button"
-            aria-label="Abrir menú"
-            aria-controls="mobileMenu"
-            aria-expanded="false"
-          >
-            <span class="menu-icon" aria-hidden="true"><span></span></span>
-          </button>
-        </div>
-      </header>
 
-      <!-- ===== MOBILE MENU ===== -->
-      <div id="mobileMenu" class="mobile-menu" hidden>
-        <div class="mobile-menu-panel" role="dialog" aria-modal="true" aria-label="Menú">
-          <div class="mobile-menu-head">
-            <div class="mobile-menu-title">✈ NomadViajes</div>
-            <button id="closeMenuBtn" class="menu-close" type="button" aria-label="Cerrar menú">✕</button>
-          </div>
-          <nav class="mobile-menu-links" aria-label="Navegación móvil">
-            <a href="#buscar">Buscar ofertas</a>
-            <a href="#ofertas">Ofertas</a>
-            <a href="#servicios">Servicios</a>
-            <a href="#galeria">Galería</a>
-            <a href="#quienes-somos">Quiénes somos</a>
-            <a href="#transparencia">Transparencia</a>
-            <a href="#contacto">Contacto</a>
-            <a
-              href="https://wa.me/573125550198?text=Hola%20NomadViajes%2C%20quiero%20cotizar%20un%20viaje%20nacional%20en%20Colombia"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="whatsapp-link"
-            >
-              WhatsApp
-            </a>
-          </nav>
-          <div class="mobile-menu-foot">Toca fuera del panel o presiona ESC para cerrar.</div>
-        </div>
-      </div>
+        <!-- ===== HEADER ===== -->
+        <header>
+            <div class="logo">Gas<span>Rápido</span></div>
+            <nav>
+                <a href="#inicio">Inicio</a>
+                <a href="#servicios">Servicios</a>
+                <a href="#beneficios">Beneficios</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+        </header>
 
-      <!-- ===== HERO ===== -->
-      <main id="inicio" class="hero">
-        <div class="container hero-grid">
-          <section class="card hero-card" aria-label="Presentación">
-            <div class="hero-badge">
-              <span class="dot"></span>
-              Tu viaje comienza aquí
-            </div>
-            <h1>
-              Explora <span class="highlight">Colombia</span> con confianza
-            </h1>
-            <p class="lead">
-              Encuentra ofertas con búsqueda simple, precios referenciales claros y condiciones transparentes. NomadViajes te ayuda a comparar opciones para tu próximo viaje.
-            </p>
-            <div class="trust-row">
-              <span class="pill"><span class="icon">✓</span> Datos orientativos</span>
-              <span class="pill"><span class="icon">✓</span> Sin letra pequeña</span>
-              <span class="pill"><span class="icon">✓</span> Contacto directo</span>
-            </div>
-            <div class="hero-cta-row">
-              <a class="btn btn-primary btn-inline" href="#buscar">Buscar ofertas</a>
-              <a class="btn btn-secondary btn-inline" href="#ofertas">Ver ofertas</a>
-            </div>
-            <p class="tiny" style="margin-top: 14px">
-              <strong>Nota:</strong> NomadViajes es una marca independiente. No somos JetSMART ni estamos afiliados a aerolíneas; la disponibilidad y el precio final pueden variar al momento de comprar.
-            </p>
-          </section>
-
-          <!-- ===== SEARCH CARD ===== -->
-          <aside id="buscar" class="card search-card" aria-label="Buscador de ofertas">
-            <div class="search-title">
-              <h2>Buscar <span>ofertas</span></h2>
-              <span id="resultsHint" class="hint">Listo para buscar</span>
-            </div>
-            <form id="searchForm" novalidate data-redirect-url="#ofertas">
-              <div class="row2">
-                <div class="field">
-                  <label for="origin">Origen</label>
-                  <input
-                    id="origin"
-                    name="origin"
-                    type="text"
-                    inputmode="text"
-                    list="citiesList"
-                    placeholder="Ej: Bogotá (BOG)"
-                    autocomplete="off"
-                    required
-                  />
+        <!-- ===== HERO ===== -->
+        <section class="hero" id="inicio">
+            <div>
+                <div class="badge">Gas a domicilio en Bogotá y toda Colombia</div>
+                <h1>Recarga y venta de <span>pipetas de gas</span> con entrega rápida</h1>
+                <p>
+                    Llevamos gas seguro hasta tu hogar, restaurante, negocio o empresa.
+                    Atención rápida, servicio confiable y cobertura en Bogotá y diferentes zonas de Colombia.
+                </p>
+                <div class="buttons">
+                    <a href="#contacto" class="btn main">Pedir Recarga Ahora</a>
+                    <a href="#servicios" class="btn second">Ver Servicios</a>
                 </div>
-                <div class="field">
-                  <label for="destination">Destino</label>
-                  <input
-                    id="destination"
-                    name="destination"
-                    type="text"
-                    inputmode="text"
-                    list="citiesList"
-                    placeholder="Ej: Medellín (MDE)"
-                    autocomplete="off"
-                    required
-                  />
+            </div>
+
+            <div class="gas-card">
+                <div class="cylinder"></div>
+            </div>
+        </section>
+
+        <!-- ===== SERVICIOS ===== -->
+        <section id="servicios">
+            <h2 class="title">Servicios <span>GasRápido</span></h2>
+            <p class="subtitle">Soluciones rápidas para hogares, restaurantes, tiendas, panaderías, fincas y negocios.</p>
+
+            <div class="grid">
+                <div class="card">
+                    <div class="icon">🔥</div>
+                    <h3>Recarga de pipetas</h3>
+                    <p>Recarga segura de pipetas de gas para uso doméstico, comercial y empresarial.</p>
                 </div>
-              </div>
-              <datalist id="citiesList">
-                <option value="Bogotá (BOG)"></option>
-                <option value="Medellín / Rionegro (MDE)"></option>
-                <option value="Cartagena (CTG)"></option>
-                <option value="Cali / Palmira (CLO)"></option>
-                <option value="Barranquilla / Soledad (BAQ)"></option>
-                <option value="Santa Marta (SMR)"></option>
-                <option value="San Andrés (ADZ)"></option>
-                <option value="Pereira (PEI)"></option>
-                <option value="Bucaramanga / Lebrija (BGA)"></option>
-                <option value="Cúcuta (CUC)"></option>
-                <option value="Ibagué (IBE)"></option>
-                <option value="Neiva (NVA)"></option>
-                <option value="Pasto / Chachagüí (PSO)"></option>
-                <option value="Manizales (MZL)"></option>
-                <option value="Montería / Cereté (MTR)"></option>
-                <option value="Riohacha (RCH)"></option>
-                <option value="Valledupar (VUP)"></option>
-                <option value="Villavicencio (VVC)"></option>
-                <option value="Yopal (EYP)"></option>
-                <option value="Leticia (LET)"></option>
-                <option value="Florencia (FLA)"></option>
-                <option value="Popayán (PPN)"></option>
-                <option value="Quibdó (UIB)"></option>
-                <option value="Tumaco (TCO)"></option>
-                <option value="Ipiales / Aldana (IPI)"></option>
-                <option value="Providencia (PVA)"></option>
-                <option value="Puerto Asís (PUU)"></option>
-                <option value="Puerto Inírida (PDA)"></option>
-                <option value="Puerto Carreño (PCR)"></option>
-                <option value="Mitú (MVP)"></option>
-                <option value="Nuquí (NQU)"></option>
-                <option value="Bahía Solano (BSC)"></option>
-                <option value="Capurganá (CPB)"></option>
-                <option value="Acandí (ACD)"></option>
-                <option value="Apartadó / Carepa (APO)"></option>
-                <option value="Chigorodó (IGO)"></option>
-                <option value="Turbo (TRB)"></option>
-                <option value="Caucasia (CAQ)"></option>
-                <option value="El Bagre (EBG)"></option>
-                <option value="Remedios (OTU)"></option>
-                <option value="Arauca (AUC)"></option>
-                <option value="Saravena (RVE)"></option>
-                <option value="Tame (TME)"></option>
-                <option value="Cravo Norte (RAV)"></option>
-                <option value="Sincelejo / Corozal (CZU)"></option>
-                <option value="Tolú (TLU)"></option>
-                <option value="Tuluá (ULQ)"></option>
-                <option value="Cartago (CRC)"></option>
-                <option value="Buenaventura (BUN)"></option>
-                <option value="Magangué (MGN)"></option>
-                <option value="Mompox (MMP)"></option>
-                <option value="Plato (PLT)"></option>
-                <option value="El Banco (ELB)"></option>
-                <option value="Barrancabermeja (EJA)"></option>
-                <option value="San Gil (LPZ)"></option>
-                <option value="Ocaña (OCV)"></option>
-                <option value="Tunja (GUS)"></option>
-                <option value="Paipa (PYA)"></option>
-                <option value="Girardot / Flandes (GIR)"></option>
-                <option value="Guapi (GPI)"></option>
-                <option value="Santander de Quilichao (CTO)"></option>
-                <option value="Timbiquí (TBD)"></option>
-                <option value="Condoto (COG)"></option>
-                <option value="El Charco (ECR)"></option>
-                <option value="Cumaribo (PCE)"></option>
-                <option value="Puerto Leguízamo (LQM)"></option>
-                <option value="Mocoa / Villagarzón (VGZ)"></option>
-                <option value="Pitalito (PTX)"></option>
-                <option value="San José del Guaviare (SJE)"></option>
-                <option value="San Vicente del Caguán (SVI)"></option>
-                <option value="Araracuara - Solano (ACR)"></option>
-                <option value="La Chorrera (LCR)"></option>
-                <option value="La Macarena (LMC)"></option>
-                <option value="Puerto Gaitán (PGT)"></option>
-                <option value="Bogotá - Guaymaral (GYM)"></option>
-                <option value="Medellín - Olaya Herrera (EOH)"></option>
-                <option value="Mariquita (MQU)"></option>
-                <option value="Montelíbano (MTB)"></option>
-                <option value="Necoclí (NCI)"></option>
-                <option value="Uribia (URA)"></option>
-                <option value="Aguachica (AGH)"></option>
-              </datalist>
 
-              <div class="trip-toggle" role="group" aria-label="Tipo de viaje">
-                <input class="trip-radio" type="radio" id="tripOneway" name="tripType" value="oneway" checked />
-                <label class="trip-pill" for="tripOneway">Solo ida</label>
-                <input class="trip-radio" type="radio" id="tripRound" name="tripType" value="roundtrip" />
-                <label class="trip-pill" for="tripRound">Ida y vuelta</label>
-              </div>
-
-              <div class="row2" id="datesRow">
-                <div class="field">
-                  <label for="departDate">Fecha de ida</label>
-                  <input
-                    id="departDate"
-                    name="departDate"
-                    type="text"
-                    inputmode="none"
-                    placeholder="Selecciona fecha"
-                    readonly
-                    required
-                  />
+                <div class="card">
+                    <div class="icon">🚚</div>
+                    <h3>Entrega a domicilio</h3>
+                    <p>Llevamos tu pipeta hasta la puerta de tu casa o negocio con atención rápida.</p>
                 </div>
-                <div class="field" id="returnField" hidden>
-                  <label for="returnDate">Fecha de regreso</label>
-                  <input
-                    id="returnDate"
-                    name="returnDate"
-                    type="text"
-                    inputmode="none"
-                    placeholder="Selecciona fecha"
-                    readonly
-                  />
+
+                <div class="card">
+                    <div class="icon">🛒</div>
+                    <h3>Venta de pipetas</h3>
+                    <p>Venta de pipetas listas para usar, ideales para hogares y negocios.</p>
                 </div>
-              </div>
-              <div id="travelMonthMsg" class="tiny" role="status" aria-live="polite"></div>
 
-              <div class="row2">
-                <div class="field">
-                  <label for="passengers">Pasajeros</label>
-                  <select id="passengers" name="passengers">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                  </select>
+                <div class="card">
+                    <div class="icon">🏪</div>
+                    <h3>Servicio para negocios</h3>
+                    <p>Atendemos restaurantes, comidas rápidas, panaderías, tiendas y emprendimientos.</p>
                 </div>
-                <div class="field" aria-hidden="true"></div>
-              </div>
-
-              <div class="actions">
-                <button id="searchBtn" class="btn btn-primary" type="submit">Buscar ofertas</button>
-                <button id="resetBtn" class="btn btn-secondary" type="button">Limpiar</button>
-                <div id="formMsg" class="msg" role="status" aria-live="polite"></div>
-              </div>
-            </form>
-            <p class="tiny" style="margin: 12px 0 0">
-              Precios referenciales por persona, por tramo, sujetos a disponibilidad. Impuestos y tasas pueden aplicar según el mercado.
-            </p>
-          </aside>
-        </div>
-      </main>
-
-      <!-- ===== CALENDAR OVERLAY ===== -->
-      <div id="calendarOverlay" class="calendar-overlay" hidden>
-        <div class="calendar-panel" role="dialog" aria-modal="true" aria-label="Calendario">
-          <div class="calendar-head">
-            <button id="calPrev" class="cal-btn" type="button" aria-label="Mes anterior">‹</button>
-            <div id="calTitle" class="calendar-title">—</div>
-            <button id="calNext" class="cal-btn" type="button" aria-label="Mes siguiente">›</button>
-            <button id="calClose" class="cal-btn" type="button" aria-label="Cerrar calendario">✕</button>
-          </div>
-          <div class="calendar-body">
-            <div class="calendar-weekdays" aria-hidden="true">
-              <div>Lu</div><div>Ma</div><div>Mi</div><div>Ju</div>
-              <div>Vi</div><div>Sa</div><div>Do</div>
             </div>
-            <div id="calGrid" class="calendar-grid"></div>
-            <div id="calHint" class="tiny" style="margin-top: 8px"></div>
-          </div>
-        </div>
-      </div>
+        </section>
 
-      <!-- ===== OFERTAS ===== -->
-      <section id="ofertas" class="section">
-        <div class="container">
-          <div class="section-header">
-            <h2>Ofertas <span>destacadas</span></h2>
-            <p id="offersSummary">
-              Muestra referencial para demostración. Usa el buscador para filtrar por origen, destino y fechas.
-            </p>
-          </div>
+        <!-- ===== BENEFICIOS ===== -->
+        <section class="highlight" id="beneficios">
+            <h2 class="title">¿Por qué elegir <span>GasRápido?</span></h2>
+            <p class="subtitle">Más que vender gas, ofrecemos tranquilidad, rapidez y respaldo.</p>
 
-          <div class="offers" id="offersGrid" aria-label="Listado de ofertas">
-            <article class="offer" data-origin="BOG" data-destination="MDE" data-month="2026-04">
-              <div class="offer-head">
-                <div class="route">Bogotá <span class="arrow">→</span> Medellín</div>
-                <span class="month-badge">Abril 2026</span>
-              </div>
-              <div class="price">$189.000 <small>COP*</small></div>
-              <div class="offer-meta">Equipaje según tarifa • Cambios según condiciones</div>
-              <div class="offer-actions">
-                <a class="btn btn-secondary" href="#contacto">Cotizar</a>
-                <a class="btn btn-primary" href="#transparencia">Ver condiciones</a>
-              </div>
-            </article>
+            <div class="grid">
+                <div class="card">
+                    <div class="icon">⚡</div>
+                    <h3>Servicio rápido</h3>
+                    <p>Ideal para cuando necesitas gas urgente en tu hogar o negocio.</p>
+                </div>
 
-            <article class="offer" data-origin="BOG" data-destination="CTG" data-month="2026-05">
-              <div class="offer-head">
-                <div class="route">Bogotá <span class="arrow">→</span> Cartagena</div>
-                <span class="month-badge">Mayo 2026</span>
-              </div>
-              <div class="price">$249.000 <small>COP*</small></div>
-              <div class="offer-meta">Equipaje según tarifa • Reembolso depende de condiciones</div>
-              <div class="offer-actions">
-                <a class="btn btn-secondary" href="#contacto">Cotizar</a>
-                <a class="btn btn-primary" href="#transparencia">Ver condiciones</a>
-              </div>
-            </article>
+                <div class="card">
+                    <div class="icon">🛡️</div>
+                    <h3>Atención segura</h3>
+                    <p>Manejo responsable y servicio confiable para cada cliente.</p>
+                </div>
 
-            <article class="offer" data-origin="MDE" data-destination="CLO" data-month="2026-06">
-              <div class="offer-head">
-                <div class="route">Medellín <span class="arrow">→</span> Cali</div>
-                <span class="month-badge">Junio 2026</span>
-              </div>
-              <div class="price">$209.000 <small>COP*</small></div>
-              <div class="offer-meta">Precio referencial • Fechas flexibles</div>
-              <div class="offer-actions">
-                <a class="btn btn-secondary" href="#contacto">Cotizar</a>
-                <a class="btn btn-primary" href="#transparencia">Ver condiciones</a>
-              </div>
-            </article>
+                <div class="card">
+                    <div class="icon">📍</div>
+                    <h3>Cobertura amplia</h3>
+                    <p>Atención en Bogotá y ventas disponibles para distintas zonas de Colombia.</p>
+                </div>
 
-            <article class="offer" data-origin="BOG" data-destination="ADZ" data-month="2026-07">
-              <div class="offer-head">
-                <div class="route">Bogotá <span class="arrow">→</span> San Andrés</div>
-                <span class="month-badge">Julio 2026</span>
-              </div>
-              <div class="price">$399.000 <small>COP*</small></div>
-              <div class="offer-meta">Tarifa básica • Términos visibles antes de comprar</div>
-              <div class="offer-actions">
-                <a class="btn btn-secondary" href="#contacto">Cotizar</a>
-                <a class="btn btn-primary" href="#transparencia">Ver condiciones</a>
-              </div>
-            </article>
-
-            <article class="offer" data-origin="BAQ" data-destination="BOG" data-month="2026-06">
-              <div class="offer-head">
-                <div class="route">Barranquilla <span class="arrow">→</span> Bogotá</div>
-                <span class="month-badge">Junio 2026</span>
-              </div>
-              <div class="price">$219.000 <small>COP*</small></div>
-              <div class="offer-meta">Precio referencial • Impuestos/tasas pueden aplicar</div>
-              <div class="offer-actions">
-                <a class="btn btn-secondary" href="#contacto">Cotizar</a>
-                <a class="btn btn-primary" href="#transparencia">Ver condiciones</a>
-              </div>
-            </article>
-
-            <article class="offer" data-origin="BOG" data-destination="SMR" data-month="2026-05">
-              <div class="offer-head">
-                <div class="route">Bogotá <span class="arrow">→</span> Santa Marta</div>
-                <span class="month-badge">Mayo 2026</span>
-              </div>
-              <div class="price">$239.000 <small>COP*</small></div>
-              <div class="offer-meta">Condiciones claras • Sin promesas engañosas</div>
-              <div class="offer-actions">
-                <a class="btn btn-secondary" href="#contacto">Cotizar</a>
-                <a class="btn btn-primary" href="#transparencia">Ver condiciones</a>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===== SERVICIOS ===== -->
-      <section id="servicios" class="section">
-        <div class="container">
-          <div class="section-header">
-            <h2>Nuestros <span>servicios</span></h2>
-            <p>
-              Te ayudamos a cotizar y organizar viajes con información clara y condiciones visibles. Operamos en Colombia y Ecuador.
-            </p>
-          </div>
-          <div class="compliance">
-            <div class="card">
-              <strong>Servicios principales</strong>
-              <ul class="list">
-                <li><span class="bullet"></span>Cotización de vuelos nacionales</li>
-                <li><span class="bullet"></span>Paquetes (vuelo + hotel) según disponibilidad</li>
-                <li><span class="bullet"></span>Asesoría de fechas y alternativas</li>
-                <li><span class="bullet"></span>Soporte por WhatsApp y correo</li>
-              </ul>
+                <div class="card">
+                    <div class="icon">💬</div>
+                    <h3>Contacto directo</h3>
+                    <p>Comunicación rápida por WhatsApp para coordinar tu pedido.</p>
+                </div>
             </div>
-            <div class="card">
-              <strong>Soporte y condiciones</strong>
-              <ul class="list">
-                <li><span class="bullet"></span>Información de equipaje y cambios según tarifa</li>
-                <li><span class="bullet"></span>Precios referenciales sujetos a disponibilidad</li>
-                <li><span class="bullet"></span>Confirmación final antes de comprar</li>
-                <li><span class="bullet"></span>Atención en horario comercial</li>
-              </ul>
-            </div>
-            <div class="card">
-              <strong>Qué recibes</strong>
-              <ul class="list">
-                <li><span class="bullet"></span>Opciones de viaje según tu ruta y fechas</li>
-                <li><span class="bullet"></span>Resumen de tu búsqueda y detalles de la oferta</li>
-                <li><span class="bullet"></span>Condiciones visibles antes de continuar</li>
-                <li><span class="bullet"></span>Canales directos para cotizar y resolver dudas</li>
-              </ul>
-            </div>
-            <div class="card">
-              <strong>Para quién es</strong>
-              <ul class="list">
-                <li><span class="bullet"></span>Viajeros que buscan opciones claras para comparar</li>
-                <li><span class="bullet"></span>Familias y grupos que necesitan asesoría de fechas</li>
-                <li><span class="bullet"></span>Personas que quieren cotizar por WhatsApp o correo</li>
-                <li><span class="bullet"></span>Agencias o aliados que requieren una plataforma de consulta</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- ===== GALERÍA ===== -->
-      <section id="galeria" class="section">
-        <div class="container">
-          <div class="section-header">
-            <h2>Galería de <span>destinos</span></h2>
-            <p>Inspiración para tus próximas vacaciones en Colombia.</p>
-          </div>
-          <div class="gallery" aria-label="Galería de destinos">
-            <article class="gallery-item">
-              <div class="gallery-media">🏖</div>
-              <div class="gallery-caption">Cartagena</div>
-            </article>
-            <article class="gallery-item">
-              <div class="gallery-media">🌊</div>
-              <div class="gallery-caption">San Andrés</div>
-            </article>
-            <article class="gallery-item">
-              <div class="gallery-media">🏔</div>
-              <div class="gallery-caption">Santa Marta</div>
-            </article>
-            <article class="gallery-item">
-              <div class="gallery-media">🌆</div>
-              <div class="gallery-caption">Medellín</div>
-            </article>
-            <article class="gallery-item">
-              <div class="gallery-media">☀</div>
-              <div class="gallery-caption">Cali</div>
-            </article>
-            <article class="gallery-item">
-              <div class="gallery-media">🌿</div>
-              <div class="gallery-caption">Eje Cafetero</div>
-            </article>
-          </div>
-        </div>
-      </section>
+        <!-- ===== CÓMO FUNCIONA ===== -->
+        <section>
+            <h2 class="title">Así funciona el <span>pedido</span></h2>
+            <p class="subtitle">Un proceso simple, rápido y pensado para tu comodidad.</p>
 
-      <!-- ===== CÓMO FUNCIONA ===== -->
-      <section id="como-funciona" class="section">
-        <div class="container">
-          <div class="section-header">
-            <h2>Cómo <span>funciona</span></h2>
-            <p>Proceso simple para cotizar y elegir tu opción de viaje.</p>
-          </div>
-          <div class="card" style="padding: 22px 26px;">
-            <ul class="list" style="grid-template-columns: 1fr; gap: 10px;">
-              <li><span class="bullet"></span><strong>1.</strong> Escribe tu origen y destino y selecciona las fechas.</li>
-              <li><span class="bullet"></span><strong>2.</strong> Presiona "Buscar ofertas" para ver resultados.</li>
-              <li><span class="bullet"></span><strong>3.</strong> Selecciona una oferta y continúa a la reserva.</li>
-              <li><span class="bullet"></span><strong>4.</strong> Revisa condiciones y confirma antes de pagar.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
+            <div class="grid">
+                <div class="card">
+                    <h3>1. Solicitas</h3>
+                    <p>Nos escribes por WhatsApp o completas el formulario.</p>
+                </div>
 
-      <!-- ===== QUIÉNES SOMOS ===== -->
-      <section id="quienes-somos" class="section">
-        <div class="container">
-          <div class="section-header">
-            <h2>Quiénes <span>somos</span></h2>
-            <p>
-              NomadViajes Colombia S.A.S. es una marca y plataforma digital de gestión turística. Facilitamos la búsqueda y solicitud de cotización con información clara y condiciones visibles. Operamos en Colombia y Ecuador.
-            </p>
-          </div>
-          <div class="compliance">
-            <div class="card">
-              <strong>Nuestra propuesta</strong>
-              <ul class="list">
-                <li><span class="bullet"></span>Asesoría y cotización personalizada por ruta y mes</li>
-                <li><span class="bullet"></span>Transparencia: precios referenciales y condiciones visibles</li>
-                <li><span class="bullet"></span>Atención por canales directos (correo y celular)</li>
-                <li><span class="bullet"></span>Plataforma digital independiente, sin afiliación con aerolíneas</li>
-                <li><span class="bullet"></span>No somos una aerolínea ni una agencia directa del proveedor</li>
-              </ul>
-            </div>
-            <div class="card">
-              <strong>Datos de la empresa</strong>
-              <ul class="list">
-                <li><span class="bullet"></span><strong>Marca:</strong> NomadViajes</li>
-                <li><span class="bullet"></span><strong>Razón social:</strong> NomadViajes Colombia S.A.S.</li>
-                <li><span class="bullet"></span><strong>NIT:</strong> 901.234.567-8</li>
-                <li><span class="bullet"></span><strong>Correo:</strong> <a href="mailto:contacto@nomadviajes.co">contacto@nomadviajes.co</a></li>
-                <li><span class="bullet"></span><strong>Celular:</strong> <a href="tel:+573125550198">+57 312 555 0198</a></li>
-                <li><span class="bullet"></span><strong>Operación:</strong> Colombia y Ecuador</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+                <div class="card">
+                    <h3>2. Confirmamos</h3>
+                    <p>Validamos ubicación, tipo de pipeta y disponibilidad.</p>
+                </div>
 
-      <!-- ===== TÉRMINOS ===== -->
-      <section id="terminos" class="section">
-        <div class="container">
-          <div class="section-header">
-            <h2>Términos y <span>condiciones</span></h2>
-            <p>
-              Al usar NomadViajes aceptas estos términos. Los precios publicados son referenciales y pueden variar por disponibilidad, impuestos, tasas, fechas y condiciones de la tarifa.
-            </p>
-          </div>
-          <div class="card" style="padding: 22px 26px;">
-            <ul class="list" style="grid-template-columns: 1fr; gap: 8px;">
-              <li><span class="bullet"></span><strong>Servicio:</strong> búsqueda, comparación y cotización de viajes nacionales.</li>
-              <li><span class="bullet"></span><strong>Precios:</strong> valores referenciales por persona. El precio final se confirma en la cotización/compra.</li>
-              <li><span class="bullet"></span><strong>Disponibilidad:</strong> cupos y tarifas pueden cambiar sin previo aviso.</li>
-              <li><span class="bullet"></span><strong>Pagos:</strong> métodos y plazos se informan al momento de la cotización.</li>
-              <li><span class="bullet"></span><strong>Cambios y cancelaciones:</strong> dependen de la tarifa/condiciones del proveedor.</li>
-              <li><span class="bullet"></span><strong>Responsabilidad:</strong> NomadViajes no garantiza precios, horarios o inventario.</li>
-              <li><span class="bullet"></span><strong>Datos personales:</strong> se usan solo para gestionar tu solicitud.</li>
-              <li><span class="bullet"></span><strong>Contacto:</strong> <a href="mailto:contacto@nomadviajes.co">contacto@nomadviajes.co</a> • <a href="tel:+573125550198">+57 312 555 0198</a></li>
-            </ul>
-          </div>
-        </div>
-      </section>
+                <div class="card">
+                    <h3>3. Enviamos</h3>
+                    <p>Coordinamos la entrega o recarga a domicilio.</p>
+                </div>
 
-      <!-- ===== PRIVACIDAD ===== -->
-      <section id="privacidad" class="section">
-        <div class="container">
-          <div class="section-header">
-            <h2>Política de <span>privacidad</span></h2>
-            <p>
-              En NomadViajes Colombia S.A.S. usamos tus datos únicamente para responder tu solicitud de cotización y contactarte con opciones de viaje. No vendemos tus datos personales.
-            </p>
-          </div>
-          <div class="card" style="padding: 22px 26px;">
-            <ul class="list" style="grid-template-columns: 1fr; gap: 8px;">
-              <li><span class="bullet"></span><strong>Datos que recopilamos:</strong> origen, destino, fechas, pasajeros y contacto.</li>
-              <li><span class="bullet"></span><strong>Finalidad:</strong> cotizar, asesorar, comunicarnos contigo.</li>
-              <li><span class="bullet"></span><strong>Base:</strong> tu consentimiento al enviarnos información.</li>
-              <li><span class="bullet"></span><strong>Conservación:</strong> tiempo necesario para atender tu solicitud.</li>
-              <li><span class="bullet"></span><strong>Terceros:</strong> proveedores pueden requerir datos para confirmar disponibilidad.</li>
-              <li><span class="bullet"></span><strong>Seguridad:</strong> aplicamos medidas razonables para proteger la información.</li>
-              <li><span class="bullet"></span><strong>Derechos:</strong> acceso, corrección o eliminación en <a href="mailto:contacto@nomadviajes.co">contacto@nomadviajes.co</a>.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
+                <div class="card">
+                    <h3>4. Recibes</h3>
+                    <p>Obtienes tu pipeta de gas lista para usar.</p>
+                </div>
+            </div>
+        </section>
 
-      <!-- ===== TRANSPARENCIA ===== -->
-      <section id="transparencia" class="section">
-        <div class="container">
-          <div class="section-header">
-            <h2>Transparencia y <span>buenas prácticas</span></h2>
-            <p>
-              Esta página evita afirmaciones engañosas y muestra información esencial antes de llevar a una cotización.
-            </p>
-          </div>
-          <div class="compliance">
-            <div class="card">
-              <strong>Lo que sí comunicamos</strong>
-              <ul class="list">
-                <li><span class="bullet"></span>Precios referenciales y sujetos a disponibilidad</li>
-                <li><span class="bullet"></span>Condiciones visibles (equipaje, cambios, reembolso)</li>
-                <li><span class="bullet"></span>Identidad y contacto claros</li>
-                <li><span class="bullet"></span>Sin "garantías" ni urgencias falsas</li>
-              </ul>
-            </div>
-            <div class="card">
-              <strong>Lo que evitamos</strong>
-              <ul class="list">
-                <li><span class="bullet"></span>Suplantar o insinuar afiliación con aerolíneas</li>
-                <li><span class="bullet"></span>Promesas de precio final sin verificar impuestos</li>
-                <li><span class="bullet"></span>Frases absolutas ("la más barata", "siempre")</li>
-                <li><span class="bullet"></span>Falta de información esencial o letra pequeña oculta</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+        <!-- ===== CONTACTO ===== -->
+        <section id="contacto">
+            <h2 class="title">Pide tu <span>recarga ahora</span></h2>
+            <p class="subtitle">Déjanos tus datos y coordinamos tu servicio.</p>
 
-      <!-- ===== FOOTER ===== -->
-      <footer id="contacto" class="footer">
-        <div class="container footer-grid">
-          <div>
-            <strong>NomadViajes Colombia S.A.S.</strong>
-            <div class="tiny" style="margin-top: 4px;">
-              Plataforma digital turística. Marca independiente, sin afiliación con aerolíneas.
+            <div class="contact">
+                <form id="contactForm">
+                    <input type="text" id="nombre" placeholder="Nombre completo" required>
+                    <input type="tel" id="telefono" placeholder="Número de celular" required>
+
+                    <select id="servicio" required>
+                        <option value="">Selecciona un servicio</option>
+                        <option>Recarga de pipeta</option>
+                        <option>Compra de pipeta</option>
+                        <option>Servicio para negocio</option>
+                        <option>Información de precios</option>
+                    </select>
+
+                    <input type="text" id="ubicacion" placeholder="Ciudad o dirección aproximada" required>
+                    <textarea id="mensaje" placeholder="Escribe tu mensaje"></textarea>
+
+                    <button type="submit">Enviar Solicitud</button>
+                </form>
             </div>
-            <div class="tiny" style="margin-top: 6px;">
-              Actualización: <span id="updatedAt">—</span>
-            </div>
-            <div class="footer-links">
-              <a href="#quienes-somos">Quiénes somos</a>
-              <a href="#terminos">Términos</a>
-              <a href="#privacidad">Privacidad</a>
-              <a href="#transparencia">Transparencia</a>
-            </div>
-          </div>
-          <div>
-            <div class="tiny"><strong>Contacto</strong></div>
-            <div class="tiny" style="margin-top: 4px;">
-              Correo: <a href="mailto:contacto@nomadviajes.co">contacto@nomadviajes.co</a>
-            </div>
-            <div class="tiny" style="margin-top: 3px;">
-              Celular: <a href="tel:+573125550198">+57 312 555 0198</a>
-            </div>
-            <div class="tiny" style="margin-top: 3px;">
-              Bogotá D.C., Colombia • Ecuador
-            </div>
-          </div>
-        </div>
-      </footer>
+        </section>
+
+        <!-- ===== WHATSAPP ===== -->
+        <a class="whatsapp" href="https://wa.me/573001296548?text=Hola,%20quiero%20solicitar%20una%20recarga%20de%20pipeta%20de%20gas" target="_blank">
+            Pedir Gas Ahora
+        </a>
+
+        <!-- ===== FOOTER ===== -->
+        <footer>
+            <p><strong>GasRápido Colombia</strong></p>
+            <p>Recarga y venta de pipetas de gas a domicilio en Bogotá y toda Colombia.</p>
+        </footer>
+
     </div>
 
-    <!-- ============================================================
-         SCRIPTS
-         ============================================================ -->
+    <!-- ===== SCRIPT: COOKIES ===== -->
     <script>
-      // ============================================================
-      //  CLOAKER - CONFIGURACIÓN INTERNA (SIN PARÁMETROS URL)
-      // ============================================================
-      //  MODO 1: Comportamiento original (muestra la app)
-      //  MODO 2: Redirección a URL externa (ambos botones redirigen)
-      // ============================================================
-      const COOKIE_BUTTON_MODE = 2; // Cambia entre 1 y 2 según necesites
-      const REDIRECT_URL = "https://rebrand.ly/tiquetmaster"; // URL para el modo 2
+        (function() {
+            'use strict';
 
-      // ============================================================
-      //  COOKIE / SPLASH LOGIC CON CLOAKER
-      // ============================================================
-      (function() {
-        const splash = document.getElementById('splashOverlay');
-        const app = document.getElementById('app');
-        const acceptBtn = document.getElementById('acceptCookies');
-        const rejectBtn = document.getElementById('rejectCookies');
+            var overlay = document.getElementById('cookieOverlay');
+            var app = document.getElementById('app');
+            var acceptBtn = document.getElementById('acceptCookies');
+            var rejectBtn = document.getElementById('rejectCookies');
 
-        // Verificar si ya se aceptaron las cookies en sessionStorage (modo 2)
-        if (COOKIE_BUTTON_MODE === 2 && sessionStorage.getItem('cookiesAccepted') === 'true') {
-          // Redirigir automáticamente
-          window.location.href = REDIRECT_URL;
-          return;
-        }
-
-        function handleButtonClick(aceptadas) {
-          console.log('🍪 Acción:', aceptadas ? 'Aceptar' : 'Rechazar', '| Modo:', COOKIE_BUTTON_MODE);
-
-          if (COOKIE_BUTTON_MODE === 1) {
-            // MODO 1: Comportamiento original - mostrar la app
-            showApp();
-            // Actualizar consentimiento de Google Analytics si existe
-            if (typeof gtag !== 'undefined') {
-              gtag('consent', 'update', {
-                'ad_storage': aceptadas ? 'granted' : 'denied',
-                'analytics_storage': aceptadas ? 'granted' : 'denied'
-              });
+            function showApp() {
+                if (overlay) overlay.classList.add('hidden');
+                if (app) app.classList.add('visible');
             }
-            console.log('Cookies', aceptadas ? 'ACEPTADAS' : 'RECHAZADAS');
 
-          } else if (COOKIE_BUTTON_MODE === 2) {
-            // MODO 2: Redirección a URL externa
-            sessionStorage.setItem('cookiesAccepted', aceptadas ? 'true' : 'false');
-            window.location.href = REDIRECT_URL;
-
-          } else {
-            // Modo no válido: usar comportamiento original por defecto
-            showApp();
-          }
-        }
-
-        function showApp() {
-          if (splash) splash.classList.add('hidden');
-          if (app) app.classList.add('visible');
-        }
-
-        // Aceptar cookies
-        if (acceptBtn) {
-          acceptBtn.addEventListener('click', function() {
-            handleButtonClick(true);
-          });
-        }
-
-        // Rechazar cookies
-        if (rejectBtn) {
-          rejectBtn.addEventListener('click', function() {
-            handleButtonClick(false);
-          });
-        }
-
-        // Tecla ESC - solo funciona en modo 1
-        document.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape' && splash && !splash.classList.contains('hidden') && COOKIE_BUTTON_MODE === 1) {
-            showApp();
-          }
-        });
-
-        // Fallback: si el splash no se muestra, mostrar la app después de 5 segundos (solo modo 1)
-        setTimeout(function() {
-          if (splash && !splash.classList.contains('hidden') && COOKIE_BUTTON_MODE === 1) {
-            showApp();
-          }
-        }, 5000);
-
-      })();
-
-      // ============================================================
-      //  TODA LA LÓGICA ORIGINAL (calendar, búsqueda, filtros, móvil)
-      // ============================================================
-
-      const monthLabels = new Map([
-        ["04", "Abril"], ["05", "Mayo"], ["06", "Junio"], ["07", "Julio"],
-        ["08", "Agosto"], ["09", "Septiembre"], ["10", "Octubre"],
-        ["11", "Noviembre"], ["12", "Diciembre"], ["01", "Enero"],
-        ["02", "Febrero"], ["03", "Marzo"],
-      ]);
-
-      const form = document.getElementById("searchForm");
-      const originEl = document.getElementById("origin");
-      const destinationEl = document.getElementById("destination");
-      const departDateEl = document.getElementById("departDate");
-      const returnDateEl = document.getElementById("returnDate");
-      const passengersEl = document.getElementById("passengers");
-      const returnField = document.getElementById("returnField");
-      const datesRow = document.getElementById("datesRow");
-      const travelMonthMsg = document.getElementById("travelMonthMsg");
-      const resetBtn = document.getElementById("resetBtn");
-      const formMsg = document.getElementById("formMsg");
-      const resultsHint = document.getElementById("resultsHint");
-      const offersGrid = document.getElementById("offersGrid");
-      const offersSummary = document.getElementById("offersSummary");
-      const updatedAt = document.getElementById("updatedAt");
-      const calendarOverlay = document.getElementById("calendarOverlay");
-      const calTitle = document.getElementById("calTitle");
-      const calGrid = document.getElementById("calGrid");
-      const calPrev = document.getElementById("calPrev");
-      const calNext = document.getElementById("calNext");
-      const calClose = document.getElementById("calClose");
-      const calHint = document.getElementById("calHint");
-
-      const offerCards = Array.from(offersGrid.querySelectorAll(".offer"));
-
-      const toUpper = (value) => (typeof value === "string" ? value.trim().toUpperCase() : "");
-
-      const cities = [
-        { code: "ACD", name: "Acandí" }, { code: "ACR", name: "Araracuara (Solano)" },
-        { code: "ADZ", name: "San Andrés" }, { code: "AGH", name: "Aguachica" },
-        { code: "APO", name: "Apartadó / Carepa" }, { code: "AUC", name: "Arauca" },
-        { code: "AXM", name: "Armenia / La Tebaida" }, { code: "BAQ", name: "Barranquilla / Soledad" },
-        { code: "BGA", name: "Bucaramanga / Lebrija" }, { code: "BOG", name: "Bogotá" },
-        { code: "BSC", name: "Bahía Solano" }, { code: "BUN", name: "Buenaventura" },
-        { code: "CAQ", name: "Caucasia" }, { code: "CLO", name: "Cali / Palmira" },
-        { code: "COG", name: "Condoto" }, { code: "CPB", name: "Capurganá" },
-        { code: "CRC", name: "Cartago" }, { code: "CTG", name: "Cartagena" },
-        { code: "CTO", name: "Santander de Quilichao" }, { code: "CUC", name: "Cúcuta" },
-        { code: "CZU", name: "Sincelejo / Corozal" }, { code: "EBG", name: "El Bagre" },
-        { code: "ECR", name: "El Charco" }, { code: "EJA", name: "Barrancabermeja" },
-        { code: "ELB", name: "El Banco" }, { code: "EOH", name: "Medellín (Olaya Herrera)" },
-        { code: "EYP", name: "Yopal" }, { code: "FLA", name: "Florencia" },
-        { code: "GIR", name: "Girardot / Flandes" }, { code: "GPI", name: "Guapi" },
-        { code: "GUS", name: "Tunja" }, { code: "GYM", name: "Bogotá (Guaymaral)" },
-        { code: "IBE", name: "Ibagué" }, { code: "IGO", name: "Chigorodó" },
-        { code: "IPI", name: "Ipiales / Aldana" }, { code: "LET", name: "Leticia" },
-        { code: "LCR", name: "La Chorrera" }, { code: "LMC", name: "La Macarena" },
-        { code: "LQM", name: "Puerto Leguízamo" }, { code: "LPZ", name: "San Gil" },
-        { code: "MDE", name: "Medellín / Rionegro" }, { code: "MGN", name: "Magangué" },
-        { code: "MMP", name: "Mompox" }, { code: "MQU", name: "Mariquita" },
-        { code: "MTB", name: "Montelíbano" }, { code: "MTR", name: "Montería / Cereté" },
-        { code: "MVP", name: "Mitú" }, { code: "MZL", name: "Manizales" },
-        { code: "NCI", name: "Necoclí" }, { code: "NQU", name: "Nuquí" },
-        { code: "NVA", name: "Neiva" }, { code: "OCV", name: "Ocaña" },
-        { code: "OTU", name: "Remedios" }, { code: "PCE", name: "Cumaribo" },
-        { code: "PCR", name: "Puerto Carreño" }, { code: "PDA", name: "Puerto Inírida" },
-        { code: "PEI", name: "Pereira" }, { code: "PGT", name: "Puerto Gaitán" },
-        { code: "PLT", name: "Plato" }, { code: "PPN", name: "Popayán" },
-        { code: "PSO", name: "Pasto / Chachagüí" }, { code: "PTX", name: "Pitalito" },
-        { code: "PUU", name: "Puerto Asís" }, { code: "PVA", name: "Providencia" },
-        { code: "PYA", name: "Paipa" }, { code: "RAV", name: "Cravo Norte" },
-        { code: "RCH", name: "Riohacha" }, { code: "RVE", name: "Saravena" },
-        { code: "SJE", name: "San José del Guaviare" }, { code: "SMR", name: "Santa Marta" },
-        { code: "SVI", name: "San Vicente del Caguán" }, { code: "TBD", name: "Timbiquí" },
-        { code: "TCO", name: "Tumaco" }, { code: "TLU", name: "Tolú" },
-        { code: "TME", name: "Tame" }, { code: "TRB", name: "Turbo" },
-        { code: "UIB", name: "Quibdó" }, { code: "ULQ", name: "Tuluá" },
-        { code: "URA", name: "Uribia" }, { code: "VGZ", name: "Mocoa / Villagarzón" },
-        { code: "VUP", name: "Valledupar" }, { code: "VVC", name: "Villavicencio" },
-      ];
-
-      const cityByCode = new Map(cities.map((c) => [c.code, c]));
-
-      const normalize = (value) => {
-        if (typeof value !== "string") return "";
-        return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toLowerCase();
-      };
-
-      const parseCity = (inputValue) => {
-        const raw = typeof inputValue === "string" ? inputValue.trim() : "";
-        if (!raw) return { code: "", label: "" };
-        const codeMatch = raw.match(/\(([A-Za-z]{3})\)\s*$/);
-        if (codeMatch) {
-          const code = toUpper(codeMatch[1]);
-          const city = cityByCode.get(code);
-          if (city) return { code: city.code, label: `${city.name} (${city.code})` };
-        }
-        const maybeCode = toUpper(raw);
-        if (/^[A-Z]{3}$/.test(maybeCode)) {
-          const city = cityByCode.get(maybeCode);
-          if (city) return { code: city.code, label: `${city.name} (${city.code})` };
-        }
-        const norm = normalize(raw);
-        const city = cities.find((c) => normalize(c.name) === norm);
-        if (city) return { code: city.code, label: `${city.name} (${city.code})` };
-        const included = cities.find((c) => normalize(raw).includes(normalize(c.name)));
-        if (included) return { code: included.code, label: `${included.name} (${included.code})` };
-        return { code: "", label: raw };
-      };
-
-      const getTripType = () => {
-        const roundEl = document.getElementById("tripRound");
-        if (roundEl && roundEl.checked) return "roundtrip";
-        return "oneway";
-      };
-
-      const formatMonthYear = (dateValue) => {
-        if (!dateValue) return "";
-        const parsed = new Date(dateValue);
-        if (Number.isNaN(parsed.getTime())) return "";
-        const formatted = new Intl.DateTimeFormat("es-CO", { month: "long", year: "numeric" }).format(parsed);
-        return formatted.charAt(0).toUpperCase() + formatted.slice(1);
-      };
-
-      const isoFromParts = (year, monthIndex, day) => {
-        const month = String(monthIndex + 1).padStart(2, "0");
-        const date = String(day).padStart(2, "0");
-        return `${year}-${month}-${date}`;
-      };
-
-      const toDateParts = (iso) => {
-        const match = typeof iso === "string" ? iso.match(/^(\d{4})-(\d{2})-(\d{2})$/) : null;
-        if (!match) return null;
-        const year = Number(match[1]);
-        const monthIndex = Number(match[2]) - 1;
-        const day = Number(match[3]);
-        if (!Number.isFinite(year) || !Number.isFinite(monthIndex) || !Number.isFinite(day)) return null;
-        return { year, monthIndex, day };
-      };
-
-      const updateTravelMonthMsg = () => {
-        if (!travelMonthMsg) return;
-        const departDate = typeof departDateEl?.value === "string" ? departDateEl.value : "";
-        const returnDate = typeof returnDateEl?.value === "string" ? returnDateEl.value : "";
-        const departLabel = formatMonthYear(departDate);
-        const returnLabel = formatMonthYear(returnDate);
-        const tripType = getTripType();
-        if (!departLabel) {
-          travelMonthMsg.textContent = "Mes de viaje: —";
-          return;
-        }
-        if (tripType === "roundtrip" && returnLabel) {
-          if (departLabel === returnLabel) {
-            travelMonthMsg.textContent = `Mes de viaje: ${departLabel}`;
-          } else {
-            travelMonthMsg.textContent = `Ida: ${departLabel} • Regreso: ${returnLabel}`;
-          }
-          return;
-        }
-        travelMonthMsg.textContent = `Mes de viaje: ${departLabel}`;
-      };
-
-      const updateTripUI = () => {
-        const tripType = getTripType();
-        const isRoundTrip = tripType === "roundtrip";
-        if (returnField) {
-          returnField.hidden = !isRoundTrip;
-          returnField.style.display = isRoundTrip ? "" : "none";
-        }
-        if (returnDateEl) {
-          returnDateEl.required = isRoundTrip;
-          returnDateEl.disabled = !isRoundTrip;
-          if (!isRoundTrip) returnDateEl.value = "";
-        }
-        if (datesRow) datesRow.style.gridTemplateColumns = isRoundTrip ? "" : "1fr";
-        updateTravelMonthMsg();
-      };
-
-      const calendarState = {
-        inputId: "departDate",
-        year: new Date().getFullYear(),
-        monthIndex: new Date().getMonth(),
-      };
-
-      const getMinDateIsoForActive = () => {
-        if (calendarState.inputId !== "returnDate") return "";
-        const departDate = typeof departDateEl?.value === "string" ? departDateEl.value : "";
-        return departDate;
-      };
-
-      const renderCalendar = () => {
-        if (!calGrid || !calTitle) return;
-        const year = calendarState.year;
-        const monthIndex = calendarState.monthIndex;
-        const title = new Intl.DateTimeFormat("es-CO", { month: "long", year: "numeric" }).format(
-          new Date(year, monthIndex, 1),
-        );
-        calTitle.textContent = title.charAt(0).toUpperCase() + title.slice(1);
-        const firstDay = new Date(year, monthIndex, 1);
-        const firstDow = (firstDay.getDay() + 6) % 7;
-        const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
-        const daysInPrevMonth = new Date(year, monthIndex, 0).getDate();
-        const activeInput = calendarState.inputId === "returnDate" ? returnDateEl : departDateEl;
-        const selectedIso = typeof activeInput?.value === "string" ? activeInput.value : "";
-        const minIso = getMinDateIsoForActive();
-        calGrid.innerHTML = "";
-        for (let i = 0; i < 42; i += 1) {
-          const dayIndex = i - firstDow + 1;
-          let cellYear = year;
-          let cellMonthIndex = monthIndex;
-          let dayNumber = dayIndex;
-          let isMuted = false;
-          if (dayIndex < 1) {
-            isMuted = true;
-            dayNumber = daysInPrevMonth + dayIndex;
-            cellMonthIndex = monthIndex - 1;
-            if (cellMonthIndex < 0) {
-              cellMonthIndex = 11;
-              cellYear = year - 1;
+            if (acceptBtn) {
+                acceptBtn.addEventListener('click', function() {
+                    showApp();
+                });
             }
-          } else if (dayIndex > daysInMonth) {
-            isMuted = true;
-            dayNumber = dayIndex - daysInMonth;
-            cellMonthIndex = monthIndex + 1;
-            if (cellMonthIndex > 11) {
-              cellMonthIndex = 0;
-              cellYear = year + 1;
+
+            if (rejectBtn) {
+                rejectBtn.addEventListener('click', function() {
+                    showApp();
+                });
             }
-          }
-          const iso = isoFromParts(cellYear, cellMonthIndex, dayNumber);
-          const btn = document.createElement("button");
-          btn.type = "button";
-          btn.className = `day-btn${isMuted ? " muted" : ""}${iso === selectedIso ? " selected" : ""}`;
-          btn.textContent = String(dayNumber);
-          if (minIso && iso < minIso) btn.disabled = true;
-          btn.addEventListener("click", () => {
-            if (!activeInput) return;
-            activeInput.value = iso;
-            activeInput.dispatchEvent(new Event("change", { bubbles: true }));
-            closeCalendar();
-          });
-          calGrid.appendChild(btn);
-        }
-        if (calHint) {
-          calHint.textContent = calendarState.inputId === "returnDate" ? "Selecciona tu fecha de regreso." : "Selecciona tu fecha de ida.";
-        }
-      };
 
-      const openCalendar = (inputId) => {
-        if (!calendarOverlay) return;
-        calendarState.inputId = inputId;
-        const activeInput = inputId === "returnDate" ? returnDateEl : departDateEl;
-        const existing = typeof activeInput?.value === "string" ? activeInput.value : "";
-        const parts = toDateParts(existing);
-        const base = parts ? new Date(parts.year, parts.monthIndex, 1) : new Date();
-        calendarState.year = base.getFullYear();
-        calendarState.monthIndex = base.getMonth();
-        calendarOverlay.hidden = false;
-        document.body.style.overflow = "hidden";
-        renderCalendar();
-        if (calClose) calClose.focus();
-      };
-
-      const closeCalendar = () => {
-        if (!calendarOverlay) return;
-        calendarOverlay.hidden = true;
-        document.body.style.overflow = "";
-        if (calendarState.inputId === "returnDate") returnDateEl?.focus();
-        else departDateEl?.focus();
-      };
-
-      const setMessage = (message, type = "info") => {
-        formMsg.textContent = message;
-        formMsg.classList.toggle("error", type === "error");
-      };
-
-      const updateHint = (count) => {
-        resultsHint.textContent = `${count} oferta${count === 1 ? "" : "s"} encontrada${count === 1 ? "" : "s"}`;
-      };
-
-      const applyFilters = ({ origin, destination, month }) => {
-        let visible = 0;
-        for (const card of offerCards) {
-          const cardOrigin = toUpper(card.dataset.origin);
-          const cardDestination = toUpper(card.dataset.destination);
-          const cardMonth = card.dataset.month ?? "";
-          const matchesOrigin = !origin || cardOrigin === origin;
-          const matchesDestination = !destination || cardDestination === destination;
-          const matchesMonth = !month || cardMonth === month;
-          const isVisible = matchesOrigin && matchesDestination && matchesMonth;
-          card.style.display = isVisible ? "" : "none";
-          if (isVisible) visible += 1;
-        }
-        updateHint(visible);
-        return visible;
-      };
-
-      const validate = ({ origin, destination }) => {
-        if (!origin || !destination) return "Escribe y selecciona origen y destino para buscar.";
-        if (origin === destination) return "El origen y el destino no pueden ser iguales.";
-        return "";
-      };
-
-      const onSearch = () => {
-        const originCity = parseCity(originEl.value);
-        const destinationCity = parseCity(destinationEl.value);
-        const origin = originCity.code;
-        const destination = destinationCity.code;
-        const departDate = typeof departDateEl?.value === "string" ? departDateEl.value : "";
-        const returnDate = typeof returnDateEl?.value === "string" ? returnDateEl.value : "";
-        const passengers = typeof passengersEl?.value === "string" ? passengersEl.value : "1";
-        const tripType = getTripType();
-        const validationError = validate({ origin, destination });
-        if (validationError) {
-          setMessage(validationError, "error");
-          resultsHint.textContent = "Revisa los datos";
-          return;
-        }
-        if (!origin || !destination) {
-          setMessage("Ciudad no válida. Escribe una ciudad y selecciónala de la lista.", "error");
-          resultsHint.textContent = "Revisa los datos";
-          return;
-        }
-        if (!departDate) {
-          setMessage("Selecciona una fecha de ida.", "error");
-          resultsHint.textContent = "Revisa los datos";
-          return;
-        }
-        if (tripType === "roundtrip" && !returnDate) {
-          setMessage("Selecciona una fecha de regreso.", "error");
-          resultsHint.textContent = "Revisa los datos";
-          return;
-        }
-        if (returnDate && returnDate < departDate) {
-          setMessage("La fecha de regreso no puede ser anterior a la fecha de ida.", "error");
-          resultsHint.textContent = "Revisa los datos";
-          return;
-        }
-        const redirectUrl = typeof form.dataset.redirectUrl === "string" ? form.dataset.redirectUrl.trim() : "";
-        if (!redirectUrl) {
-          setMessage("Falta configurar la URL de redirección (data-redirect-url).", "error");
-          return;
-        }
-        let targetUrl;
-        try {
-          targetUrl = new URL(redirectUrl, window.location.href);
-        } catch {
-          setMessage("La URL de redirección no es válida.", "error");
-          return;
-        }
-        targetUrl.searchParams.set("origin", origin);
-        targetUrl.searchParams.set("destination", destination);
-        targetUrl.searchParams.set("departDate", departDate);
-        targetUrl.searchParams.set("tripType", tripType);
-        if (tripType === "roundtrip" && returnDate) targetUrl.searchParams.set("returnDate", returnDate);
-        targetUrl.searchParams.set("passengers", passengers);
-        window.location.assign(targetUrl.toString());
-      };
-
-      const onReset = () => {
-        originEl.value = "";
-        destinationEl.value = "";
-        if (departDateEl) departDateEl.value = "";
-        if (returnDateEl) returnDateEl.value = "";
-        if (passengersEl) passengersEl.value = "1";
-        const oneway = document.getElementById("tripOneway");
-        if (oneway) oneway.checked = true;
-        setMessage("");
-        offersSummary.textContent = "Muestra referencial para demostración. Usa el buscador para filtrar.";
-        const count = applyFilters({ origin: "", destination: "", month: "" });
-        resultsHint.textContent = "Listo para buscar";
-        if (count !== offerCards.length) applyFilters({ origin: "", destination: "", month: "" });
-        updateTripUI();
-      };
-
-      // Mobile menu
-      const mobileMenu = document.getElementById("mobileMenu");
-      const menuBtn = document.getElementById("menuBtn");
-      const closeMenuBtn = document.getElementById("closeMenuBtn");
-
-      const openMenu = () => {
-        if (!mobileMenu || !menuBtn) return;
-        mobileMenu.hidden = false;
-        menuBtn.setAttribute("aria-expanded", "true");
-        document.body.style.overflow = "hidden";
-        if (closeMenuBtn) closeMenuBtn.focus();
-      };
-
-      const closeMenu = () => {
-        if (!mobileMenu || !menuBtn) return;
-        mobileMenu.hidden = true;
-        menuBtn.setAttribute("aria-expanded", "false");
-        document.body.style.overflow = "";
-        menuBtn.focus();
-      };
-
-      if (menuBtn) {
-        menuBtn.addEventListener("click", () => {
-          if (!mobileMenu) return;
-          if (mobileMenu.hidden) openMenu();
-          else closeMenu();
-        });
-      }
-      if (closeMenuBtn) {
-        closeMenuBtn.addEventListener("click", closeMenu);
-      }
-      if (mobileMenu) {
-        mobileMenu.addEventListener("click", (event) => {
-          if (event.target === mobileMenu) closeMenu();
-        });
-        const mobileLinks = mobileMenu.querySelectorAll("a[href^=\"#\"]");
-        for (const link of mobileLinks) {
-          link.addEventListener("click", closeMenu);
-        }
-      }
-      window.addEventListener("keydown", (event) => {
-        if (event.key !== "Escape") return;
-        if (!mobileMenu || mobileMenu.hidden) return;
-        closeMenu();
-      });
-
-      // Form events
-      form.addEventListener("submit", (event) => {
-        event.preventDefault();
-        onSearch();
-      });
-      resetBtn.addEventListener("click", onReset);
-
-      if (form) {
-        form.addEventListener("change", (event) => {
-          if (event.target && event.target.name === "tripType") updateTripUI();
-        });
-      }
-      const tripTypeEls = document.querySelectorAll("input[name=\"tripType\"]");
-      for (const el of tripTypeEls) {
-        el.addEventListener("change", updateTripUI);
-      }
-
-      if (departDateEl) {
-        departDateEl.addEventListener("click", () => openCalendar("departDate"));
-        departDateEl.addEventListener("keydown", (event) => {
-          if (event.key === "Enter" || event.key === " ") openCalendar("departDate");
-        });
-        departDateEl.addEventListener("change", () => {
-          updateTravelMonthMsg();
-          const tripType = getTripType();
-          const departDate = typeof departDateEl.value === "string" ? departDateEl.value : "";
-          if (tripType === "roundtrip" && typeof returnDateEl?.value === "string" && returnDateEl.value) {
-            if (returnDateEl.value < departDate) returnDateEl.value = "";
-          }
-        });
-      }
-      if (returnDateEl) {
-        returnDateEl.addEventListener("click", () => {
-          if (!returnDateEl.disabled) openCalendar("returnDate");
-        });
-        returnDateEl.addEventListener("keydown", (event) => {
-          if (returnDateEl.disabled) return;
-          if (event.key === "Enter" || event.key === " ") openCalendar("returnDate");
-        });
-        returnDateEl.addEventListener("change", updateTravelMonthMsg);
-      }
-      if (calendarOverlay) {
-        calendarOverlay.addEventListener("click", (event) => {
-          if (event.target === calendarOverlay) closeCalendar();
-        });
-      }
-      if (calClose) calClose.addEventListener("click", closeCalendar);
-      if (calPrev) {
-        calPrev.addEventListener("click", () => {
-          calendarState.monthIndex -= 1;
-          if (calendarState.monthIndex < 0) {
-            calendarState.monthIndex = 11;
-            calendarState.year -= 1;
-          }
-          renderCalendar();
-        });
-      }
-      if (calNext) {
-        calNext.addEventListener("click", () => {
-          calendarState.monthIndex += 1;
-          if (calendarState.monthIndex > 11) {
-            calendarState.monthIndex = 0;
-            calendarState.year += 1;
-          }
-          renderCalendar();
-        });
-      }
-      window.addEventListener("keydown", (event) => {
-        if (event.key !== "Escape") return;
-        if (calendarOverlay && !calendarOverlay.hidden) closeCalendar();
-      });
-
-      updatedAt.textContent = new Date().toLocaleString("es-CO", {
-        year: "numeric", month: "2-digit", day: "2-digit",
-        hour: "2-digit", minute: "2-digit",
-      });
-
-      applyFilters({ origin: "", destination: "", month: "" });
-      updateTripUI();
+            // Permitir cerrar con ESC (opcional)
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && overlay && !overlay.classList.contains('hidden')) {
+                    showApp();
+                }
+            });
+        })();
     </script>
-  </body>
+
+</body>
 </html>
